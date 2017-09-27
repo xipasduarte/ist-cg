@@ -63,6 +63,58 @@ export default () => {
 }
 ```
 
+### Git basics
+
+These are the basic commands and their core features.
+
+1. First you need to clone the repository (make sure you have your SSH key configured on GitHub):
+```
+git clone git@github.com:xipasduarte/ist-cg.git
+```
+This will create a folder with the repo name, if you'd like to change the folder's name, just pass on argument at the end with a string for the new name.
+
+2. Creating a branch to work on. Always create branches, to star new development, from the master branch.
+```
+git checkout -b [branch_name]
+```
+This will create the branch and "mount" it.
+
+3. Changing branches, or checkout in git.
+```
+git checkout [branch_name]
+```
+So basically it's the simplest use of the command in 2., here we don't pass the `-b` option and no branch is created.
+
+4. Add changes to commit. This will put your changes in a "virtual branch" that then, on step 6., gets imprinted in the repository's history.
+```
+git add [name of file or folder]
+```
+or
+```
+# Allows for a preview of the changes. Does not add new files, a.k.a. untracked.
+git add -p
+```
+or
+```
+# Add everything that was changed. Dangerous...
+git add --all
+```
+
+5. To see which files were changed use an equivalent of the `ls` command.
+```
+git status
+```
+
+6. Commiting your work. Do this often, it will ease with writing messages and save states of the code, in case something goes wrong.
+```
+git commit -m "Write message here."
+```
+
+7. Finally, when you're ready to share your changes, or jus want to keep them in a safer place, just push them to the remote repository.
+```
+git push origin [branch_name]
+```
+
 ## Contributing
 
 To make things easy we'll use GitHub as the source of all our project knowledge. We will submit code through Pull Requests and the branch naming convention should be:
