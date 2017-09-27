@@ -24,7 +24,46 @@ There is also another command to simply build the source files:
 npm run build
 ```
 
-# Contributing
+## Development
+
+We are using some of the latest features in JavaScript, most notably the module composition. Essentially all files (except the `app.js`) are to be considered modules. Each of these returns some new Object or does something with the Objects. A file structure always contains an `export default` like this:
+
+```javascript
+export default () => {
+  // Contents of the function.
+}
+```
+
+You can import things to use on other files with the `import` instruction. For ThreeJS this means that each of the methods that were under the `THREE` object, can now be imported separately like this:
+
+```javascript
+import { TorusGeometry, MeshBasicMaterial, Mesh } from 'three';
+
+export default () => {
+  const geometry = new TorusGeometry(2, 1); // Previously THREE.TorusGeometry()
+  const material = new MeshBasicMaterial({ color: 0xffff00, wireframe: true }); // Previously THREE.MeshBasicMaterial()
+  const cheeerio = new Mesh(geometry, material); // Previously THREE.Mesh()
+
+  return cheerio;
+}
+```
+
+You can also import files from the current directory (ThreeJS is a dependency). To do so reference the file and name the exported function like the file (minus the `.js`):
+
+```javascript
+import { Scene } from 'three';
+import Wheel from './Objects/Wheel';
+
+export default () => {
+  const scene = new Scene(); // Previously THREE.Scene()
+
+  scene.add(Wheel());
+
+  return scene; // This is just an example, in reality we are adding the scene variable to the window object which is of global access.
+}
+```
+
+## Contributing
 
 To make things easy we'll use GitHub as the source of all our project knowledge. We will submit code through Pull Requests and the branch naming convention should be:
 
