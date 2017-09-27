@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "serve public"
+    "deploy": "rm -rf site/ && npm run build && mkdir site && cp -r public/ site/public && cp index.html site/"
   },
   "repository": {
     "type": "git",

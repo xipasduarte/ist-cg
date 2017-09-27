@@ -22,8 +22,8 @@ export default {
     }),
 		commonjs(), // converts date-fns to ES modules
 		production && uglify(), // minify, but only in production
-		serve(),
-		livereload(''),
+		!production && serve(),
+		!production && livereload(),
 	],
 	sourcemap: true,
 };

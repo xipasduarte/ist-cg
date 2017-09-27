@@ -34,9 +34,8 @@ const addBody = (group, x, y, z) => {
   const body = new Group();
   const frontGeometry = new BoxGeometry(3, 1, 3);
   const backGeometry = new BoxGeometry(3, 2, 3);
-  const material = new MeshBasicMaterial({ color: 0xff9900, wireframe: true });
-  const front = new Mesh(frontGeometry, material);
-  const back = new Mesh(backGeometry, material);
+  const front = new Mesh(frontGeometry, new MeshBasicMaterial({ color: 0xff9900, wireframe: true }));
+  const back = new Mesh(backGeometry, new MeshBasicMaterial({ color: 0xff9900, wireframe: true }));
 
   front.position.set(3, -.5, 0);
 

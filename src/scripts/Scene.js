@@ -6,10 +6,11 @@ import Table from './Objects/Table';
 export default () => {
   const scene = new Scene();
 
-  scene.add(new AxisHelper(10));
-  scene.add(Table(0, 0, 0));
-  scene.add(Ball(0, 20, 0));
-  scene.add(Car(0, 10, 0));
+  scene.add(
+    new AxisHelper(10),
+    Table(0, 0, 0),
+    Car(0, 10, 0)
+  );
 
   window.scene = scene;
 }
