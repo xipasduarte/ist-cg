@@ -1,7 +1,7 @@
 import { Group, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
 
 const addTableTop = (group, material, x, y, z) => {
-  const geometry = new BoxGeometry(60, 2, 60);
+  const geometry = new BoxGeometry(100, 2, 100);
   const top = new Mesh(geometry, material);
 
   top.position.set(x, y, z);

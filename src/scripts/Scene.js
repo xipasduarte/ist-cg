@@ -5,7 +5,6 @@ import Table from './Objects/Table';
 
 export default () => {
   const scene = new Scene();
-
   scene.add(
     new AxisHelper(10),
     Table(0, 0, 0),

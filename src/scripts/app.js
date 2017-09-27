@@ -4,21 +4,22 @@ import Renderer from './Renderer';
 
 import onResize from './Events/onResize';
 import onKeyDown from './Events/onKeyDown';
+import onKeyUp from './Events/onKeyUp';
 
-
-const gameState = {
-	time: null,
-	car: {
-		isMoving: false,
-		reverse: false,
-	}
-};
+import updateCarPosition from './updateCarPosition';
 
 const init = () => {
 	// Add state.
 	window.gameState = {
 		wireframe: true,
-	}
+		time: 0,
+		car: {
+			forward: false,
+			reverse: false,
+			left: false,
+			right: false,
+		}
+	};
 
 	Scene();
 	Camera();
@@ -28,10 +29,16 @@ const init = () => {
 
 	window.addEventListener('resize', onResize);
 	window.addEventListener('keydown', onKeyDown);
+	window.addEventListener('keyup', onKeyUp);
 }
 
-const animate = () => {
+const animate = (step) => {
 	requestAnimationFrame(animate);
+
+	updateCarPosition(step);
+
+	// Update time.
+	gameState.time = step;
 
 	renderer.render(scene, camera);
 };
