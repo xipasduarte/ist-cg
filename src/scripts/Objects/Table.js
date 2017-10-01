@@ -1,15 +1,23 @@
 import { Group, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
 
-const addTableTop = (group, material, x, y, z) => {
-  const geometry = new BoxGeometry(100, 2, 100);
+const addTableTop = (group, width, height, x, y, z) => {
+  const geometry = new BoxGeometry(width, 2, height);
+  const material = new MeshBasicMaterial({
+    color: 0x00ff00,
+    wireframe: window.gameState.wireframe,
+  });
   const top = new Mesh(geometry, material);
 
   top.position.set(x, y, z);
   group.add(top);
 }
 
-const addTableLeg = (group, material, x, y, z) => {
+const addTableLeg = (group, x, y, z) => {
   const geometry = new BoxGeometry(2, 6, 2);
+  const material = new MeshBasicMaterial({
+    color: 0x00ff00,
+    wireframe: window.gameState.wireframe,
+  });
   const leg = new Mesh(geometry, material);
 
   leg.position.set(x, y, z);
@@ -17,17 +25,15 @@ const addTableLeg = (group, material, x, y, z) => {
 }
 
 export default (x, y, z) => {
+  const width = 140;
+  const height = 100;
   const table = new Group();
-  const material = new MeshBasicMaterial({
-    color: 0x00ff00,
-    wireframe: window.gameState.wireframe,
-  });
 
-  addTableTop(table, material, 0, 0, 0);
-  addTableLeg(table, material, 29, -4, 29);
-  addTableLeg(table, material, -29, -4, 29);
-  addTableLeg(table, material, 29, -4, -29);
-  addTableLeg(table, material, -29, -4, -29);
+  addTableTop(table, width, height, 0, 0, 0);
+  addTableLeg(table, (width/2 - 1), -4, (height/2 - 1));
+  addTableLeg(table, -(width/2 - 1), -4, (height/2 - 1));
+  addTableLeg(table, (width/2 - 1), -4, -(height/2 - 1));
+  addTableLeg(table, -(width/2 - 1), -4, -(height/2 - 1));
 
   table.position.set(x, y, z);
 

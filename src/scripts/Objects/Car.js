@@ -67,6 +67,7 @@ export default (x, y, z) => {
   car.add(new AxisHelper(5));
 
   car.name = 'car';
+  car.rotateY(-Math.PI/2);
   car.position.set(x, y, z);
 
   return car;
