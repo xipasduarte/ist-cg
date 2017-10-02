@@ -28,7 +28,6 @@ const addWheel = (group, x, y, z) => {
   );
 
   wheel.position.set(x, y, z);
-  wheel.rotateY(-Math.PI/2);
   group.add(wheel);
 }
 
@@ -39,7 +38,16 @@ const addBody = (group, x, y, z) => {
   const front = new Mesh(frontGeometry, new MeshBasicMaterial({ color: 0xff9900, wireframe: true }));
   const back = new Mesh(backGeometry, new MeshBasicMaterial({ color: 0xff9900, wireframe: true }));
 
+  // Back.
+  back.name = 'back';
+  addWheel(back, 0, -0.5, 2.5);
+  addWheel(back, 0, -0.5, -2.5);
+
+  // Front.
+  front.name = 'front';
   front.position.set(3, -.5, 0);
+  addWheel(front, 0, -0.5, 2.5);
+  addWheel(front, 0, -0.5, -2.5);
 
   body.add(front, back);
   body.position.set(x, y, z);
@@ -57,12 +65,6 @@ export default (x, y, z) => {
   }
 
   addBody(car, 0, 0, 0);
-  // Back.
-  addWheel(car, 2.5, -0.5, 0);
-  addWheel(car, -2.5, -0.5, 0);
-  // Front.
-  addWheel(car, 2.5, -0.5, 3);
-  addWheel(car, -2.5, -0.5, 3);
 
   car.add(new AxisHelper(5));
 
