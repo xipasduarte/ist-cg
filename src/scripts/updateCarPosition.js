@@ -55,7 +55,8 @@ const updateSpeedPosition = (car, delta) => {
  */
 const updateRotationPosition = (car, delta) => {
   const direction = gameState.car.left ? 1 : -1;
-  car.rotateY(direction * 0.0025 * delta);
+  const rotation = car.state.speed === 0 ? 0 : 0.0025;
+  car.rotateY(direction * rotation * delta);
 
   // Move wheels to match rotation.
   rotateWheels(car.getObjectByName('front').children, direction);
