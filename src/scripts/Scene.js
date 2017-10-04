@@ -9,7 +9,7 @@ export default () => {
   scene.add(
     new AxisHelper(10),
     Table(0, 0, 0),
-    Car(0, 10, 0),
+    Car(0, 3, 25),
     Track(0, 0, 0)
   );
 

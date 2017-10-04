@@ -1,5 +1,7 @@
 import { Mesh } from 'three';
 
+import Camera from './../Camera';
+
 export default (e) => {
   switch(e.keyCode) {
     case 65:
@@ -20,6 +22,18 @@ export default (e) => {
       break;
     case 40: // Down arrow
       gameState.car.reverse = true;
+      break;
+    case 73: // i
+      gameState.camera.type = 'perspective';
+      Camera();
+      break;
+    case 79: // o
+      gameState.camera.type = 'ortogonal';
+      Camera();
+      break;
+    case 80: // p
+      gameState.camera.type = 'thirdPerson';
+      Camera();
       break;
   }
 }
