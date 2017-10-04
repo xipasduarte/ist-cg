@@ -8,7 +8,9 @@ import {
   Shape,
   ShapeGeometry,
   MeshBasicMaterial,
-  Mesh
+  Mesh,
+  Vector3,
+  Object3D
 } from 'three';
 
 const addWheel = (group, x, y, z) => {
@@ -61,6 +63,7 @@ export default (x, y, z) => {
 
   car.state = {
     acceleration: 0.01,
+    drag: 0.1,
     speed: 0,
   }
 
@@ -71,6 +74,7 @@ export default (x, y, z) => {
   car.name = 'car';
   car.rotateY(-Math.PI/2);
   car.position.set(x, y, z);
+
 
   return car;
 }

@@ -11,7 +11,7 @@ const updateSpeed = (car, delta) => {
   const drag = 0.01;
 
   if (gameState.car.forward) {
-    acceleration = 0.005;
+    acceleration = 0.0005;
   }
   if(gameState.car.reverse) {
     acceleration = -0.0025;
@@ -23,7 +23,7 @@ const updateSpeed = (car, delta) => {
   car.state.speed = car.state.speed * (1 - drag);
 
   // Make full stop, if differance is marginal to zero speed.
-  if (Math.abs(car.state.speed) < 0.025) {
+  if (!gameState.car.forward && !gameState.car.reverse && Math.abs(car.state.speed) < 0.05) {
     car.state.speed = 0;
   }
   
@@ -59,7 +59,7 @@ const updateRotationPosition = (car, delta) => {
   car.rotateY(direction * rotation * delta);
 
   // Move wheels to match rotation.
-  rotateWheels(car.getObjectByName('front').children, direction);
+  rotateWheels(car.getObjectByName('front').children, car.state.speed > 0 ? direction : -direction);
 };
 
 const rotateWheels = (wheels, direction) => {
