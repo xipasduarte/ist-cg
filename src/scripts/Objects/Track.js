@@ -1,7 +1,7 @@
 import { Group, TorusGeometry, MeshBasicMaterial, Mesh, Vector3 } from 'three';
 
 const addCheerio = (group, x, y, z) => {
-	const geometry = new TorusGeometry(0.75, 0.3, 16, 100);
+	const geometry = new TorusGeometry(0.75, 0.3, 10, 15);
 	const material = new MeshBasicMaterial({color: 0xcccc00, wireframe: true});
 	const cheerio = new Mesh(geometry, material);
 
@@ -32,7 +32,7 @@ const createSemiSphere = (group, x, y, z, radius, startingAngle, stepAngle, zSca
 const createLine = (group, x, y, z, length, spacing) => {
 	var newX = x + spacing;
 	var max = x + length;
-	
+
 	while(newX < max){
 		addCheerio(group, newX, y, z);
 		newX+=spacing;
