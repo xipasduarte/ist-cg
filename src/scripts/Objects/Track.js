@@ -21,7 +21,6 @@ const createSemiSphere = (group, x, y, z, radius, startingAngle, stepAngle, zSca
 	}
 
 	while(theta<=final_theta){
-		console.log(newZ);
 		addCheerio(group, newX, y, newZ);
 		theta+=stepAngle; //Math.PI/6
 		newX=radius*Math.cos(theta)+x;
@@ -33,10 +32,8 @@ const createSemiSphere = (group, x, y, z, radius, startingAngle, stepAngle, zSca
 const createLine = (group, x, y, z, length, spacing) => {
 	var newX = x + spacing;
 	var max = x + length;
-
-	console.log("line")
+	
 	while(newX < max){
-		console.log(newX);
 		addCheerio(group, newX, y, z);
 		newX+=spacing;
 	}
