@@ -12,9 +12,12 @@ export default () => {
     Car(0, 10, 0),
   );
 
-  for (let i = 0; i < 15; i++){
+  for (let i = 0; i < 3; i++){
     scene.add(Ball(i));
-    scene.add(Butter(i));
+  }
+
+  for (let i = 0; i < 5; i++){
+      scene.add(Butter(i));
   }
 
   window.scene = scene;
