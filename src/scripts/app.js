@@ -7,7 +7,6 @@ import onKeyDown from './Events/onKeyDown';
 import onKeyUp from './Events/onKeyUp';
 
 import updateCarPosition from './updateCarPosition';
-import detectCollision from './detectCollision';
 
 const init = () => {
 	// Add state.
@@ -40,7 +39,6 @@ const animate = (step) => {
 	requestAnimationFrame(animate);
 
 	updateCarPosition(step);
-	detectCollision();
 
 	// Update time.
 	gameState.time = step;
