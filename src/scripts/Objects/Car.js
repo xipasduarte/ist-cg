@@ -29,6 +29,9 @@ const addWheel = (group, x, y, z) => {
 
   wheel.position.set(x, y, z);
   wheel.rotateY(-Math.PI/2);
+  wheel.name = 'car_wheel';
+
+
   group.add(wheel);
 }
 
@@ -44,6 +47,7 @@ const addBody = (group, x, y, z) => {
   body.add(front, back);
   body.position.set(x, y, z);
   body.rotateY(-Math.PI/2);
+  body.name = 'car_body';
 
   group.add(body);
 }
