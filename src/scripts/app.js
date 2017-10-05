@@ -19,7 +19,10 @@ const init = () => {
 			reverse: false,
 			left: false,
 			right: false,
-		}
+		},
+		camera: {
+			type: 'ortogonal',
+		},
 	};
 
 	Scene();

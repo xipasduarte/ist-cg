@@ -3,6 +3,7 @@ import Ball from './Objects/Ball';
 import Butter from './Objects/Butter';
 import Car from './Objects/Car';
 import Table from './Objects/Table';
+import Track from './Objects/Track';
 
 export default () => {
   const scene = new Scene();
@@ -10,6 +11,8 @@ export default () => {
     new AxisHelper(10),
     Table(0, 0, 0),
     Car(0, 10, 0),
+    Car(0, 3, 25),
+    Track(0, 0, 0)
   );
 
   for (let i = 0; i < 3; i++){
