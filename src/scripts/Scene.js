@@ -1,4 +1,4 @@
-import { Scene, AxisHelper, Vector3 } from 'three';
+import { Scene, AxisHelper } from 'three';
 import Ball from './Objects/Ball';
 import Butter from './Objects/Butter';
 import Car from './Objects/Car';
@@ -10,7 +10,6 @@ export default () => {
   scene.add(
     new AxisHelper(10),
     Table(0, 0, 0),
-    Car(0, 10, 0),
     Car(0, 3, 25),
     Track(0, 0, 0)
   );
