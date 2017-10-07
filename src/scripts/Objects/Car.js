@@ -3,12 +3,16 @@ import {
   Group,
   BoxGeometry,
   TorusGeometry,
+  PlaneGeometry,
   RingGeometry,
   PolyhedronGeometry,
   Shape,
   ShapeGeometry,
   MeshBasicMaterial,
-  Mesh
+  Mesh,
+  DoubleSide,
+  Triangle,
+  Vector3
 } from 'three';
 
 const addWheel = (group, x, y, z) => {
@@ -36,12 +40,18 @@ const addBody = (group, x, y, z) => {
   const body = new Group();
   const frontGeometry = new BoxGeometry(3, 1, 3);
   const backGeometry = new BoxGeometry(3, 2, 3);
+  const glassGeometry = new PlaneGeometry(Math.sqrt(10), 3, 2, 2);
   const front = new Mesh(frontGeometry, new MeshBasicMaterial({ color: 0xff9900, wireframe: true }));
   const back = new Mesh(backGeometry, new MeshBasicMaterial({ color: 0xff9900, wireframe: true }));
+  const glass = new Mesh(glassGeometry, new MeshBasicMaterial({ color: 0x0000ff,side: DoubleSide, wireframe: true }));
+
+  glass.rotation.y=Math.atan(-1/3);
+  glass.rotation.x=Math.PI/2;
+  glass.position.set(3, 0.5, 0);
 
   front.position.set(3, -.5, 0);
 
-  body.add(front, back);
+  body.add(front, back, glass);
   body.position.set(x, y, z);
   body.rotateY(-Math.PI/2);
 
