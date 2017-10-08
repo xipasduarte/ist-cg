@@ -1,3 +1,5 @@
+import { Clock } from 'three';
+
 import Camera from './Camera';
 import Scene from './Scene';
 import Renderer from './Renderer';
@@ -23,6 +25,7 @@ const init = () => {
 			type: 'ortogonal',
 		},
 	};
+	window.clock = new Clock();
 
 	Scene();
 	Camera();
@@ -35,13 +38,10 @@ const init = () => {
 	window.addEventListener('keyup', onKeyUp);
 }
 
-const animate = (step) => {
+const animate = () => {
 	requestAnimationFrame(animate);
 
-	updateCarPosition(step);
-
-	// Update time.
-	gameState.time = step;
+	updateCarPosition();
 
 	renderer.render(scene, camera);
 };
