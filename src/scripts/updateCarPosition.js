@@ -48,6 +48,7 @@ const updateSpeedPosition = (car, delta) => {
   car.applyMatrix(matrix);
 
   // Rotate wheels to match speed.
+  // FIXME: This is still only referencing the back wheels.
   rotateWheels(car, delta);
 };
 
@@ -85,7 +86,7 @@ const turnWheels = (wheels, direction) => {
  * @param {double} delta
  */
 const rotateWheels = (car, delta) => {
-  const rotation = car.state.speed * delta / 2;
+  const rotation = -car.state.speed * delta * 100;
   car.traverse((node) => {
     if (node.name !== 'wheel') {
       return;
@@ -96,15 +97,12 @@ const rotateWheels = (car, delta) => {
 
 /**
  * Update car related movements.
- * 
- * @param {double} 
  */
 export default () => {
   const car = scene.getObjectByName('car');
   const delta = clock.getDelta();
   
   // Update speed.
-  
   if (gameState.car.forward || gameState.car.reverse || car.state.speed !== 0) {
     updateSpeed(car, delta);
     updateSpeedPosition(car, delta);
