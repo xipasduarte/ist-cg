@@ -8,15 +8,16 @@ export default (number) => {
     wireframe: window.gameState.wireframe,
   });
   const orange = new Mesh(geometry, material);
-  const max_safe = 96;
+  const safe_x = 120;
+  const safe_z = 80;
 
   orange.name = 'orange';
 
   for (let index = 0; index < number; index++) {
     orange.position.set(
-      Math.random() * max_safe - max_safe/2,
-      2 + 2/2,
-      Math.random() * max_safe - max_safe/2
+      Math.random() * safe_x - safe_x/2,
+      3,
+      Math.random() * safe_z - safe_z/2
     );
     oranges.add(orange.clone());
   }
