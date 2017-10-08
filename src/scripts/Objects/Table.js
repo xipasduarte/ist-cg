@@ -36,6 +36,7 @@ export default (x, y, z) => {
   addTableLeg(table, -(width/2 - 1), -4, -(height/2 - 1));
 
   table.position.set(x, y, z);
+  table.name = 'table';
 
   return table;
 }
