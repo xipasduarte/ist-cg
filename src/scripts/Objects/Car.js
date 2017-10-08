@@ -12,7 +12,7 @@ import {
   Mesh,
   DoubleSide,
   Triangle,
-  Vector3
+  Object3D
 } from 'three';
 
 const addWheel = (group, x, y, z) => {
@@ -32,7 +32,6 @@ const addWheel = (group, x, y, z) => {
   );
 
   wheel.position.set(x, y, z);
-  wheel.rotateY(-Math.PI/2);
   group.add(wheel);
 }
 
@@ -49,7 +48,16 @@ const addBody = (group, x, y, z) => {
   glass.rotation.x=Math.PI/2;
   glass.position.set(3, 0.5, 0);
 
+  // Back.
+  back.name = 'back';
+  addWheel(back, 0, -0.5, 2.5);
+  addWheel(back, 0, -0.5, -2.5);
+
+  // Front.
+  front.name = 'front';
   front.position.set(3, -.5, 0);
+  addWheel(front, 0, -0.5, 2.5);
+  addWheel(front, 0, -0.5, -2.5);
 
   body.add(front, back, glass);
   body.position.set(x, y, z);
@@ -63,21 +71,18 @@ export default (x, y, z) => {
 
   car.state = {
     acceleration: 0.01,
+    drag: 0.1,
     speed: 0,
   }
 
   addBody(car, 0, 0, 0);
-  // Back.
-  addWheel(car, 2.5, -0.5, 0);
-  addWheel(car, -2.5, -0.5, 0);
-  // Front.
-  addWheel(car, 2.5, -0.5, 3);
-  addWheel(car, -2.5, -0.5, 3);
 
   car.add(new AxisHelper(5));
 
   car.name = 'car';
+  car.rotateY(-Math.PI/2);
   car.position.set(x, y, z);
+
 
   return car;
 }
