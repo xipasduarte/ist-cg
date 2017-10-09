@@ -1,14 +1,16 @@
 import {
   AxisHelper,
-  Group,
   BoxGeometry,
-  TorusGeometry,
-  RingGeometry,
-  PolyhedronGeometry,
-  Shape,
+  DoubleSide,
   ExtrudeGeometry,
+  Group,
+  Mesh,
   MeshBasicMaterial,
-  Mesh
+  PolyhedronGeometry,
+  RingGeometry,
+  Shape,
+  TorusGeometry,
+  Vector3
 } from 'three';
 
 /**
@@ -53,6 +55,7 @@ const addWheel = (x, y, z) => {
   const rim = new Mesh(rimGeometry, new MeshBasicMaterial({
     color: 0x999999,
     wireframe: true,
+    side: DoubleSide,
   }));
 
   rim.name = 'rim';
@@ -108,7 +111,7 @@ const addBody = (x, y, z) => {
  * @param {double} y
  * @param {double} z
  */
-export default (x, y, z) => {
+export default (position, scale = new Vector3(1, 1, 1)) => {
   const car = new Group();
 
   car.state = {
@@ -123,7 +126,8 @@ export default (x, y, z) => {
   );
   car.name = 'car';
   car.rotateY(-Math.PI/2);
-  car.position.set(x, y, z);
+  car.position.copy(position);
+  car.scale.copy(scale);
 
   return car;
 };
