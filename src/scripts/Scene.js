@@ -12,7 +12,7 @@ export default () => {
     Table(0, 0, 0),
     Car(0, 3, 25),
     Track(0, 0, 0),
-    Orange(5),
+    Orange(3),
     Butter(5)
   );
 

@@ -21,7 +21,7 @@ const createGlass = () => {
   glassShape.lineTo(0, 3);
 
   const glassGeometry = new ExtrudeGeometry(glassShape, {
-    steps: 2,
+    steps: 1,
     amount: 3,
     bevelEnabled: false,
   });
