@@ -1,7 +1,7 @@
 import { PerspectiveCamera, OrthographicCamera, Vector3 } from 'three';
 
 const orthogonal = (x, y, z, lookAt) => {
-  const camera = new OrthographicCamera(window.innerWidth / - 10, window.innerWidth / 10, window.innerHeight / 10, window.innerHeight / - 10, 1, 200);
+  const camera = new OrthographicCamera(-window.innerWidth / 12, window.innerWidth / 12, window.innerHeight / 12, -window.innerHeight / 12, 1, 200);
   camera.position.set(x, y, z);
   camera.lookAt(lookAt);
   camera.name = 'camera';

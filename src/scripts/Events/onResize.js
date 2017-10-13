@@ -5,14 +5,17 @@ export default (e) => {
     return;
   }
 
+  
   if (camera.type === 'OrthographicCamera') {
-    camera.left = window.innerWidth / -10;
-    camera.right = window.innerWidth / 10;
-    camera.top = window.innerHeight / 10;
-    camera.bottom = window.innerHeight / -10;
-  } else {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    const factor = (window.innerWidth * window.innerHeight * 12) / (1275 * 707);
+
+    camera.left = -window.innerWidth / factor;
+    camera.right = window.innerWidth / factor;
+    camera.top = window.innerHeight / factor;
+    camera.bottom = -window.innerHeight / factor;
   }
+
+  camera.aspect = window.innerWidth / window.innerHeight;
   
   camera.updateProjectionMatrix();
 }
