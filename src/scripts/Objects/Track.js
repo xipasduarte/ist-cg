@@ -42,8 +42,8 @@ const createLine = (group, x, y, z, length, spacing) => {
 export default (x, y, z) => {
 	const track = new Group();
 	//outer rim of track
-	createSemiSphere(track, -30, 2, 0, 30, Math.PI/2, Math.PI/8, 1);	
-	createSemiSphere(track, 30, 2, 0, 30, 3*Math.PI/2, Math.PI/8, 1);
+	createSemiSphere(track, -30, 2, 0, 30, Math.PI/2, Math.PI/18, 1);	
+	createSemiSphere(track, 30, 2, 0, 30, 3*Math.PI/2, Math.PI/18, 1);
 	createLine(track, -30, 2, -30, 60, 6);
 	createLine(track, -30, 2, 30, 60, 6);
 	//inner rim of track

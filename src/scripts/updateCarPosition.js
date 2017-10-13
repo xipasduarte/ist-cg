@@ -11,10 +11,10 @@ const updateSpeed = (car, delta) => {
   const drag = 0.01;
 
   // TODO: Fix aceleration variations.
-  if (gameState.car.forward) {
+  if (car.forward) {
     acceleration = 2.5;
   }
-  if(gameState.car.reverse) {
+  if(car.reverse) {
     acceleration = -1.5;
   }
 
@@ -24,7 +24,7 @@ const updateSpeed = (car, delta) => {
   car.state.speed = car.state.speed * (1 - drag);
 
   // Make full stop, if differance is marginal to zero speed.
-  if (!gameState.car.forward && !gameState.car.reverse && Math.abs(car.state.speed) < 0.05) {
+  if (!car.forward && !car.reverse && Math.abs(car.state.speed) < 0.05) {
     car.state.speed = 0;
   }
   
@@ -48,7 +48,6 @@ const updateSpeedPosition = (car, delta) => {
   car.applyMatrix(matrix);
 
   // Rotate wheels to match speed.
-  // FIXME: This is still only referencing the back wheels.
   rotateWheels(car, delta);
 };
 
@@ -59,12 +58,15 @@ const updateSpeedPosition = (car, delta) => {
  * @param {int} delta The delta between the current and last updates.
  */
 const updateRotationPosition = (car, delta) => {
-  const direction = gameState.car.left ? 1 : -1;
+  const direction = car.left ? 1 : -1;
   const rotation = car.state.speed === 0 ? 0 : 2.5;
   car.rotateY(direction * rotation * delta);
 
   // Turn wheels to match rotation.
-  turnWheels(car.getObjectByName('front').children, car.state.speed > 0 ? direction : -direction);
+  if (!car.wheelsTurned) {
+    turnWheels(car.getObjectByName('front').children, car.state.speed > 0 ? direction : -direction);
+    car.wheelsTurned = true;
+  }
 };
 
 /**
@@ -86,7 +88,7 @@ const turnWheels = (wheels, direction) => {
  * @param {double} delta
  */
 const rotateWheels = (car, delta) => {
-  const rotation = -car.state.speed * delta * 100;
+  const rotation = -car.state.speed * delta * 10;
   car.traverse((node) => {
     if (node.name !== 'wheel') {
       return;
@@ -103,14 +105,15 @@ export default () => {
   const delta = clock.getDelta();
   
   // Update speed.
-  if (gameState.car.forward || gameState.car.reverse || car.state.speed !== 0) {
+  if (car.forward || car.reverse || car.state.speed !== 0) {
     updateSpeed(car, delta);
     updateSpeedPosition(car, delta);
   }
 
-  if (gameState.car.left || gameState.car.right) {
+  if (car.left || car.right) {
     updateRotationPosition(car, delta);
-  } else {
+  } else if (car.wheelsTurned) {
     turnWheels(car.getObjectByName('front').children, 0);
+    car.wheelsTurned = false;
   }
 };
