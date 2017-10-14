@@ -64,7 +64,7 @@ const updateRotationPosition = (car, delta) => {
 
   // Turn wheels to match rotation.
   if (!car.wheelsTurned) {
-    turnWheels(car.getObjectByName('front').children, car.state.speed > 0 ? direction : -direction);
+    turnWheels(car.getObjectByName('front').children, car.state.speed < 0 ? -direction : direction);
     car.wheelsTurned = true;
   }
 };
@@ -110,10 +110,14 @@ export default () => {
     updateSpeedPosition(car, delta);
   }
 
-  if (car.left || car.right) {
-    updateRotationPosition(car, delta);
-  } else if (car.wheelsTurned) {
+  if (car.left && car.right) {
+    car.wheelsTurned = false;
+  }
+
+  if (car.wheelsTurned || (car.left && car.right)) {
     turnWheels(car.getObjectByName('front').children, 0);
     car.wheelsTurned = false;
+  } else if (car.left || car.right) {
+    updateRotationPosition(car, delta);
   }
 };
