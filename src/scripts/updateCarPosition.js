@@ -104,17 +104,20 @@ export default () => {
   const car = scene.getObjectByName('car');
   const delta = clock.getDelta();
   
-  // Update speed.
+  // Update speed and position.
   if (car.forward || car.reverse || car.state.speed !== 0) {
     updateSpeed(car, delta);
     updateSpeedPosition(car, delta);
   }
   
+  // Update car orientation when either left or right keys are pressed.
   if (car.left || car.right) {
+    console.log([car.left, car.right]);
     updateRotationPosition(car, delta);
   }
 
-  if (((car.left && car.right) || (!car.left && !car.right)) && car.wheelsTurned) {
+  // Remove front wheel Y rotation when the car is not turning.
+  if (!car.left && !car.right && car.wheelsTurned) {
     turnWheels(car.getObjectByName('front').children, 0);
     car.wheelsTurned = false;
   }
