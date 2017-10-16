@@ -109,15 +109,13 @@ export default () => {
     updateSpeed(car, delta);
     updateSpeedPosition(car, delta);
   }
-
-  if (car.left && car.right) {
-    car.wheelsTurned = false;
+  
+  if (car.left || car.right) {
+    updateRotationPosition(car, delta);
   }
 
-  if (car.wheelsTurned || (car.left && car.right)) {
+  if (((car.left && car.right) || (!car.left && !car.right)) && car.wheelsTurned) {
     turnWheels(car.getObjectByName('front').children, 0);
     car.wheelsTurned = false;
-  } else if (car.left || car.right) {
-    updateRotationPosition(car, delta);
   }
 };
