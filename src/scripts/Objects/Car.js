@@ -60,11 +60,13 @@ const addBody = (group, x, y, z) => {
 
 export default (x, y, z) => {
   const car = new Group();
+  var AABB = new Box3();
 
   car.state = {
     acceleration: 0.01,
     drag: 0.1,
     speed: 0,
+    boundingBox: AABB
   }
 
   addBody(car, 0, 0, 0);
@@ -74,6 +76,8 @@ export default (x, y, z) => {
   car.name = 'car';
   car.rotateY(-Math.PI/2);
   car.position.set(x, y, z);
+
+  car.state.boundingBox.setFromObject(car);//dont forget to update when car turns
 
 
   return car;
