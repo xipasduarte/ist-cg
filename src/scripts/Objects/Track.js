@@ -1,13 +1,23 @@
-import { Group, TorusGeometry, MeshBasicMaterial, Mesh, Vector3 } from 'three';
+import { Group, TorusGeometry, MeshBasicMaterial, Mesh, Vector3, Box3 } from 'three';
 
 const addCheerio = (group, x, y, z) => {
+	const AABB = new Box3();
+	const cheerioBox = new Group();
 	const geometry = new TorusGeometry(0.75, 0.3, 10, 15);
 	const material = new MeshBasicMaterial({color: 0xcccc00, wireframe: true});
 	const cheerio = new Mesh(geometry, material);
 
-	cheerio.position.set(x,y,z);
-	cheerio.rotation.set(Math.PI/2,0,0);
-	group.add(cheerio);
+	AABB.setFromObject(cheerio);//does it change when position is changed
+
+	cheerioBox.add(cheerio, AABB);
+
+	cheerio.state ={
+		radius=0.75+0.3;
+	}
+
+	cheerioBox.position.set(x,y,z);
+	cheerioBox.rotation.set(Math.PI/2,0,0);
+	group.add(cheerioBox);
 }
 
 const createSemiSphere = (group, x, y, z, radius, startingAngle, stepAngle, zScale) => {
