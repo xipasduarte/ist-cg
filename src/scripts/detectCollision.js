@@ -1,63 +1,67 @@
 import { Box3 } from 'three';
 
-const checkColisionBoxes = (A,B) => {
-	if(	A.boundingBox.max.x > B.boundingBox.min.x &&
-	   	A.boundingBox.min.x < B.boundingBox.max.x &&
-		A.boundingBox.max.y > B.boundingBox.min.y &&
-		A.boundingBox.min.y < B.boundingBox.max.y &&
-		A.boundingBox.max.z > B.boundingBox.min.z &&
-		A.boundingBox.min.z < B.boundingBox.max.z
-	  ){ return true}
+const checkCollisionBoxes = (A,B) => {
+	if (
+		A.max.x > B.min.x &&
+		A.min.x < B.max.x &&
+		A.max.y > B.min.y &&
+		A.min.y < B.max.y &&
+		A.max.z > B.min.z &&
+		A.min.z < B.max.z
+	) {
+		return true;
+	}
 	return false;
+};
 
-}
 export default () => {
 	const car = window.scene.getObjectByName('car');
 	const oranges = window.scene.getObjectByName('oranges');
 	const track = window.scene.getObjectByName('track');
 	const butters = window.scene.getObjectByName('butters');
+
 	const carBox = new Box3();
 	carBox.setFromObject(car);
 
 	oranges.children.forEach(
-		(orange) =>{
-			if(checkColisionBoxes(orange,car)){
-				//endGame();
+		(orange) => {
+			if (checkCollisionBoxes(orange.state.boundingBox, carBox)) {
+				console.log('bum');
+				window.game.restart();
 			}
 		}
-	)
+	);
 
 	butters.children.forEach(
-		(node) =>{
-			if(checkColisionBoxes(node,car)){
-				car.state.colision.push(node.id);
+		(butter) =>{
+			if (checkCollisionBoxes(butter.state.boundingBox,carBox)) {
+				car.state.collision.push(butter.id);
+				console.log('butter');
 			}
 		}
-	)
+	);
 
 	track.children.forEach(
-		(node) =>{
-			if(checkColisionBoxes(node,car)){
-				console.log('colision');
-				car.state.colision.push(node.id);
-				node.state.colision.push(car.id);
+		(cheerio) =>{
+			if (checkCollisionBoxes(cheerio.state.boundingBox,carBox)) {
+				console.log('cheerio');
+				car.state.collision.push(cheerio.id);
+				cheerio.state.collision.push(car.id);
 			}
 		}
-	)
+	);
 
-	track.children.forEach(
-		(referenceNode) =>{
-			track.children.forEach(
-				(trackNode) =>{
-					if(checkColisionBoxes(referenceNode,trackNode)){
-						referenceNode.state.colision.push(trackNode.id);
-						trackNode.state.colision.push(referenceNode.id);
+	// track.children.forEach(
+	// 	(referenceNode) =>{
+	// 		track.children.forEach(
+	// 			(trackNode) =>{
+	// 				if(checkCollisionBoxes(referenceNode.boundingBox,trackNode.boundingBox)){
+	// 					referenceNode.state.collision.push(trackNode.id);
+	// 					trackNode.state.collision.push(referenceNode.id);
 						
-					}
-				}
-			)
-		}
-	)
-
-
-}
+	// 				}
+	// 			}
+	// 		)
+	// 	}
+	// );
+};

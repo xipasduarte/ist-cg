@@ -1,47 +1,18 @@
-import { Clock } from 'three';
-
-import Camera from './Camera';
-import Scene from './Scene';
-import Renderer from './Renderer';
-
-import onResize from './Events/onResize';
-import onKeyDown from './Events/onKeyDown';
-import onKeyUp from './Events/onKeyUp';
-
+import Game from './Game';
+import detectCollision from './detectCollision';
 import updateCarPosition from './updateCarPosition';
 
-import detectCollision from './detectCollision';
-
-const init = () => {
-	// Add state.
-	window.gameState = {
-		wireframe: true,
-		time: 0,
-		car: {
-			forward: false,
-			reverse: false,
-			left: false,
-			right: false,
-		},
-		camera: {
-			type: 'ortogonal',
-		},
-	};
-	window.clock = new Clock();
-
-	Scene();
-	Camera();
-	Renderer();
-
-	document.body.appendChild(renderer.domElement);
-
-	window.addEventListener('resize', onResize);
-	window.addEventListener('keydown', onKeyDown);
-	window.addEventListener('keyup', onKeyUp);
-}
+window.game = new Game;
 
 const animate = () => {
 	requestAnimationFrame(animate);
+
+	scene.traverse((node) => {
+		if(node.name !== 'AABB') {
+			return;
+		}
+		node.update();
+	});
 
 	detectCollision();
 	updateCarPosition();
@@ -50,7 +21,7 @@ const animate = () => {
 };
 
 // Setup Scene, Camera and Objects.
-init();
+window.game.init();
 
 // Start "update/display" loop.
 animate();

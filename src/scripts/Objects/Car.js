@@ -118,16 +118,15 @@ export default (position, scale = new Vector3(1, 1, 1)) => {
     acceleration: 0,
     drag: 0.1,
     speed: 0,
-    colision: []
+    collision: []
   };
 
   car.add(
-    new AxisHelper(5),
-    addBody(0, 0, 0)
+    addBody(0, 0, 0),
   );
   car.name = 'car';
   car.rotateY(-Math.PI/2);
-
+  
   car.position.copy(position);
   car.scale.copy(scale);
 

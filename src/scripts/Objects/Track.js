@@ -6,13 +6,14 @@ const addCheerio = (group, x, y, z) => {
 	const material = new MeshBasicMaterial({color: 0xcccc00, wireframe: true});
 	const cheerio = new Mesh(geometry, material);
 
+	cheerio.name = 'cheerio';
 	cheerio.position.set(x,y,z);
 	cheerio.rotation.set(Math.PI/2,0,0);
 
 	cheerio.state = {
 		boundingBox: AABB,
 		velocity: 0 ,
-		colision: []
+		collision: []
 	};
 
 	AABB.setFromObject(cheerio);

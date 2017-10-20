@@ -11,21 +11,25 @@ export default (number) => {
   const orange = new Mesh(geometry, material);
   const safe_x = 120;
   const safe_z = 80;
+
   const AABB = new Box3();
 
-  orange.state = {
-    boundingBox: AABB,
-  }
   orange.name = 'orange';
 
   for (let index = 0; index < number; index++) {
-    orange.position.set(
+    const newOrange = orange.clone();
+
+    newOrange.position.set(
       Math.random() * safe_x - safe_x/2,
       3,
       Math.random() * safe_z - safe_z/2
     );
-    orange.state.boundingBox = AABB.setFromObject(orange);
-    oranges.add(orange.clone());
+
+    newOrange.state = {
+      boundingBox: new Box3().setFromObject(newOrange),
+    }
+    
+    oranges.add(newOrange);
   }
 
   return oranges;

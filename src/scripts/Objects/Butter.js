@@ -19,13 +19,19 @@ export default (number) => {
   butter.name = 'butter';
 
   for (let index = 0; index < number; index++) {
-    butter.position.set(
-      Math.random() * safe_x - safe_x/2,
-      3,
-      Math.random() * safe_z - safe_z/2
-    );
-    butter.state.boundingBox = AABB.setFromObject(butter);
-    butters.add(butter.clone());
+    const newButter = butter.clone();
+    
+        newButter.position.set(
+          Math.random() * safe_x - safe_x/2,
+          3,
+          Math.random() * safe_z - safe_z/2
+        );
+    
+        newButter.state = {
+          boundingBox: new Box3().setFromObject(newButter),
+        }
+        
+        butters.add(newButter);
   }
 
   return butters;
