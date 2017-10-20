@@ -118,7 +118,8 @@ export default (position, scale = new Vector3(1, 1, 1)) => {
     acceleration: 0,
     drag: 0.1,
     speed: 0,
-    wheelsTurned: false,
+    turningLeft: false,
+    turningRight: false,
   };
 
   car.add(
