@@ -2,33 +2,7 @@ import Game from './Game';
 import detectCollision from './detectCollision';
 import updateCarPosition from './updateCarPosition';
 
-const init = () => {
-	// Add state.
-	window.gameState = {
-		wireframe: true,
-		time: 0,
-		car: {
-			forward: false,
-			reverse: false,
-			left: false,
-			right: false,
-		},
-		camera: {
-			type: 'ortogonal',
-		},
-	};
-	window.clock = new Clock();
-
-	Scene();
-	Camera('orthogonal');
-	Renderer();
-
-	document.body.appendChild(renderer.domElement);
-
-	window.addEventListener('resize', onResize);
-	window.addEventListener('keydown', onKeyDown);
-	window.addEventListener('keyup', onKeyUp);
-}
+window.game = new Game();
 
 const animate = () => {
 	requestAnimationFrame(animate);
