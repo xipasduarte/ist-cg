@@ -1,7 +1,8 @@
-import { Group, SphereGeometry, MeshBasicMaterial,  Mesh } from 'three';
+import { Group, SphereGeometry, MeshBasicMaterial,  Mesh, Box3 } from 'three';
 
 export default (number) => {
   const oranges = new Group();
+  oranges.name = 'oranges';
   const geometry = new SphereGeometry(2);
   const material = new MeshBasicMaterial({
     color: 0xcc5300,
@@ -10,7 +11,11 @@ export default (number) => {
   const orange = new Mesh(geometry, material);
   const safe_x = 120;
   const safe_z = 80;
+  const AABB = new Box3();
 
+  orange.state = {
+    boundingBox: AABB,
+  }
   orange.name = 'orange';
 
   for (let index = 0; index < number; index++) {
@@ -19,6 +24,7 @@ export default (number) => {
       3,
       Math.random() * safe_z - safe_z/2
     );
+    orange.state.boundingBox = AABB.setFromObject(orange);
     oranges.add(orange.clone());
   }
 

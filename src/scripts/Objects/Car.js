@@ -113,12 +113,12 @@ const addBody = (x, y, z) => {
  */
 export default (position, scale = new Vector3(1, 1, 1)) => {
   const car = new Group();
-  var AABB = new Box3();
 
   car.state = {
     acceleration: 0,
     drag: 0.1,
     speed: 0,
+    colision: []
   };
 
   car.add(

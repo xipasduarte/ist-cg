@@ -10,12 +10,12 @@ const addCheerio = (group, x, y, z) => {
 	cheerio.rotation.set(Math.PI/2,0,0);
 
 	cheerio.state = {
-		boundingBox: AABB
-	}
+		boundingBox: AABB,
+		velocity: 0 ,
+		colision: []
+	};
 
 	AABB.setFromObject(cheerio);
-	console.log(AABB.min);
-	console.log(cheerio.state.boundingBox.min);
 
 	group.add(cheerio);
 }
@@ -51,6 +51,7 @@ const createLine = (group, x, y, z, length, spacing) => {
 
 export default (x, y, z) => {
 	const track = new Group();
+	track.name = 'track';
 	//outer rim of track
 	createSemiSphere(track, -30, 2, 0, 30, Math.PI/2, Math.PI/18, 1);	
 	createSemiSphere(track, 30, 2, 0, 30, 3*Math.PI/2, Math.PI/18, 1);

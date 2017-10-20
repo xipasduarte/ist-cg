@@ -1,7 +1,8 @@
-import { Group, BoxGeometry, MeshBasicMaterial,  Mesh } from 'three';
+import { Group, BoxGeometry, MeshBasicMaterial,  Mesh, Box3 } from 'three';
 
 export default (number) => {
   const butters = new Group;
+  butters.name = 'butters';
   const geometry = new BoxGeometry(5, 2, 2);
   const material = new MeshBasicMaterial({
     color: 0xffff00,
@@ -10,7 +11,11 @@ export default (number) => {
   const butter = new Mesh(geometry, material);
   const safe_x = 120;
   const safe_z = 80;
+  const AABB = new Box3();
   
+  butter.state = {
+    boundingBox: AABB,
+  }
   butter.name = 'butter';
 
   for (let index = 0; index < number; index++) {
@@ -19,6 +24,7 @@ export default (number) => {
       3,
       Math.random() * safe_z - safe_z/2
     );
+    butter.state.boundingBox = AABB.setFromObject(butter);
     butters.add(butter.clone());
   }
 

@@ -10,6 +10,8 @@ import onKeyUp from './Events/onKeyUp';
 
 import updateCarPosition from './updateCarPosition';
 
+import detectCollision from './detectCollision';
+
 const init = () => {
 	// Add state.
 	window.gameState = {
@@ -41,6 +43,7 @@ const init = () => {
 const animate = () => {
 	requestAnimationFrame(animate);
 
+	detectCollision();
 	updateCarPosition();
 
 	renderer.render(scene, camera);
