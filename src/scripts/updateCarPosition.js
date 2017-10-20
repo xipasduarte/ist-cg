@@ -10,11 +10,12 @@ const updateSpeed = (car, delta) => {
   let acceleration = 0;
   const drag = 0.01;
 
+  // TODO: Fix aceleration variations.
   if (gameState.car.forward) {
-    acceleration = 0.0005;
+    acceleration = 2.5;
   }
   if(gameState.car.reverse) {
-    acceleration = -0.0025;
+    acceleration = -1.5;
   }
 
   car.state.speed = car.state.speed + acceleration * delta;
@@ -45,6 +46,10 @@ const updateSpeedPosition = (car, delta) => {
 
   matrix.setPosition(car.getWorldDirection().multiplyScalar(car.state.speed));
   car.applyMatrix(matrix);
+
+  // Rotate wheels to match speed.
+  // FIXME: This is still only referencing the back wheels.
+  rotateWheels(car, delta);
 };
 
 /**
@@ -55,25 +60,49 @@ const updateSpeedPosition = (car, delta) => {
  */
 const updateRotationPosition = (car, delta) => {
   const direction = gameState.car.left ? 1 : -1;
-  const rotation = car.state.speed === 0 ? 0 : 0.0025;
+  const rotation = car.state.speed === 0 ? 0 : 2.5;
   car.rotateY(direction * rotation * delta);
 
-  // Move wheels to match rotation.
-  rotateWheels(car.getObjectByName('front').children, car.state.speed > 0 ? direction : -direction);
+  // Turn wheels to match rotation.
+  turnWheels(car.getObjectByName('front').children, car.state.speed > 0 ? direction : -direction);
 };
 
-const rotateWheels = (wheels, direction) => {
+/**
+ * Turn wheels on Y axis to match turning.
+ * 
+ * @param {array} wheels 
+ * @param {int} direction 
+ */
+const turnWheels = (wheels, direction) => {
   wheels.forEach((wheel) => {
-    wheel.setRotationFromAxisAngle(new Vector3(0,1,0), direction * 0.25);
+    wheel.setRotationFromAxisAngle(new Vector3(0,1,0), direction * 0.5);
   });
 };
 
-export default (step) => {
+/**
+ * Turn wheels on X axis.
+ * 
+ * @param {THREE.Group} car 
+ * @param {double} delta
+ */
+const rotateWheels = (car, delta) => {
+  const rotation = -car.state.speed * delta * 100;
+  car.traverse((node) => {
+    if (node.name !== 'wheel') {
+      return;
+    }
+    node.rotateZ(rotation);
+  });
+};
+
+/**
+ * Update car related movements.
+ */
+export default () => {
   const car = scene.getObjectByName('car');
-  const delta = step - gameState.time;
+  const delta = clock.getDelta();
   
   // Update speed.
-  
   if (gameState.car.forward || gameState.car.reverse || car.state.speed !== 0) {
     updateSpeed(car, delta);
     updateSpeedPosition(car, delta);
@@ -82,6 +111,6 @@ export default (step) => {
   if (gameState.car.left || gameState.car.right) {
     updateRotationPosition(car, delta);
   } else {
-    rotateWheels(car.getObjectByName('front').children, 0);
+    turnWheels(car.getObjectByName('front').children, 0);
   }
 };

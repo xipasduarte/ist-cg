@@ -32,7 +32,6 @@ export default () => {
       car.add(camera);
       break;
     default:
-      car.
       camera = perspective(75, 75, 75, scene.position);
       break;
   }

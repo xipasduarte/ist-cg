@@ -7,6 +7,9 @@ export default (e) => {
     case 65:
       scene.traverseVisible((node) => {
         if (node instanceof Mesh) {
+          if (node.name === 'rim') {
+            return;
+          }
           node.material.wireframe = !node.material.wireframe;
         }
       });
