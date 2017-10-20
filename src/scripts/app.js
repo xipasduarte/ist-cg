@@ -28,7 +28,7 @@ const init = () => {
 	window.clock = new Clock();
 
 	Scene();
-	Camera();
+	Camera('orthogonal');
 	Renderer();
 
 	document.body.appendChild(renderer.domElement);

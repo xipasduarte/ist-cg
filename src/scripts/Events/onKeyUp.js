@@ -1,16 +1,18 @@
 export default (e) => {
+  const car = window.scene.getObjectByName('car');
+
   switch(e.keyCode) {
     case 37: // Left arrow
-      gameState.car.left = false;
+      car.left = false;
       break;
     case 38: // Top arrow
-      gameState.car.forward = false;
+      car.forward = false;
       break;
     case 39: // Right
-      gameState.car.right = false;
+      car.right = false;
       break;
     case 40: // Down arrow
-      gameState.car.reverse = false;
+      car.reverse = false;
       break;
   }
 }
