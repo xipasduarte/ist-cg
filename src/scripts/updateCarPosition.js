@@ -63,9 +63,13 @@ const updateRotationPosition = (car, delta) => {
   car.rotateY(direction * rotation * delta);
 
   // Turn wheels to match rotation.
-  if (!car.wheelsTurned) {
+  if (
+    car.left && !car.turningLeft ||
+    car.right && !car.turningRight
+  ) {
     turnWheels(car.getObjectByName('front').children, car.state.speed < 0 ? -direction : direction);
-    car.wheelsTurned = true;
+    car.tunrnigLeft = car.left;
+    car.turningRight = car.right;
   }
 };
 
@@ -112,13 +116,13 @@ export default () => {
   
   // Update car orientation when either left or right keys are pressed.
   if (car.left || car.right) {
-    console.log([car.left, car.right]);
     updateRotationPosition(car, delta);
   }
 
   // Remove front wheel Y rotation when the car is not turning.
-  if (!car.left && !car.right && car.wheelsTurned) {
+  if (!car.left && !car.right && car.turningLeft && car.turningRight) {
     turnWheels(car.getObjectByName('front').children, 0);
-    car.wheelsTurned = false;
+    car.turningLeft = false;
+    car.turningRight = false;
   }
 };
