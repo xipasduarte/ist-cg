@@ -3,6 +3,7 @@ import { Mesh } from 'three';
 import Camera from './../Camera';
 
 export default (e) => {
+  const car = window.scene.getObjectByName('car');
   switch(e.keyCode) {
     case 65:
       scene.traverseVisible((node) => {
@@ -15,28 +16,25 @@ export default (e) => {
       });
       break;
     case 37: // Left arrow
-      gameState.car.left = true;
+      car.left = true;
       break;
     case 38: // Top arrow
-      gameState.car.forward = true;
+      car.forward = true;
       break;
     case 39: // Right
-      gameState.car.right = true;
+      car.right = true;
       break;
     case 40: // Down arrow
-      gameState.car.reverse = true;
+      car.reverse = true;
       break;
-    case 73: // i
-      gameState.camera.type = 'perspective';
-      Camera();
+    case 49: // 1
+      Camera('orthogonal');
       break;
-    case 79: // o
-      gameState.camera.type = 'ortogonal';
-      Camera();
+    case 50: // 2
+      Camera('perspective');
       break;
-    case 80: // p
-      gameState.camera.type = 'thirdPerson';
-      Camera();
+    case 51: // 3
+      Camera('thirdPerson');
       break;
   }
 }

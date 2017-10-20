@@ -2,7 +2,7 @@ import { Group, TorusGeometry, MeshBasicMaterial, Mesh, Vector3, Box3 } from 'th
 
 const addCheerio = (group, x, y, z) => {
 	const AABB = new Box3();
-	const geometry = new TorusGeometry(0.75, 0.3, 10, 15);
+	const geometry = new TorusGeometry(0.75, 0.3, 5, 10);
 	const material = new MeshBasicMaterial({color: 0xcccc00, wireframe: true});
 	const cheerio = new Mesh(geometry, material);
 
