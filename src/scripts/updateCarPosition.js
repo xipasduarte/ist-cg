@@ -47,6 +47,13 @@ const updateSpeedPosition = (car, delta) => {
   matrix.setPosition(car.getWorldDirection().multiplyScalar(car.state.speed));
   car.applyMatrix(matrix);
 
+  if (
+    Math.abs(car.position.x) > 70 ||
+    Math.abs(car.position.z) > 50
+  ) {
+    window.game.restart();
+  }
+
   // Rotate wheels to match speed.
   rotateWheels(car, delta);
 };

@@ -6,7 +6,7 @@ export default (number) => {
   const geometry = new BoxGeometry(5, 2, 2);
   const material = new MeshBasicMaterial({
     color: 0xffff00,
-    wireframe: window.gameState.wireframe,
+    wireframe: window.game.state.wireframe,
   });
   const butter = new Mesh(geometry, material);
   const safe_x = 120;

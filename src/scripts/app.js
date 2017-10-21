@@ -1,6 +1,7 @@
 import Game from './Game';
 import detectCollision from './detectCollision';
 import updateCarPosition from './updateCarPosition';
+import updateOrangePosition from './updateOrangePosition';
 
 window.game = new Game();
 
@@ -16,6 +17,7 @@ const animate = () => {
 
 	detectCollision();
 	updateCarPosition();
+	updateOrangePosition();
 
 	renderer.render(scene, camera);
 };

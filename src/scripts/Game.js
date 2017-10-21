@@ -9,25 +9,16 @@ import onKeyDown from './Events/onKeyDown';
 import onKeyUp from './Events/onKeyUp';
 
 class Game {
-    init() {
-        // Add state.
-        window.gameState = {
+    constructor() {
+        this.state = {
             wireframe: true,
-            time: 0,
-            car: {
-                forward: false,
-                reverse: false,
-                left: false,
-                right: false,
-            },
-            camera: {
-                type: 'ortogonal',
-            },
         };
+    }
+    
+    init() {
         window.clock = new Clock();
-
         Scene();
-        Camera();
+        Camera('orthogonal');
         Renderer();
 
         document.body.appendChild(renderer.domElement);
@@ -42,6 +33,8 @@ class Game {
         car.state.speed = 0;
         car.setRotationFromAxisAngle(new Vector3(0, 1, 0), -Math.PI/2);
         car.position.copy(new Vector3(0, 3, 25));
+        window.clock.stop();
+        window.clock.start();
     }
 };
 

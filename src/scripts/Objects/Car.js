@@ -46,7 +46,7 @@ const createGlass = () => {
  */
 const addWheel = (x, y, z) => {
   const wheel = new Group();
-  const tireGeometry = new TorusGeometry(.75, .30, 10, 10);
+  const tireGeometry = new TorusGeometry(.75, .30, 5, 10);
   const rimGeometry = new RingGeometry(.1, .5);
   const tire = new Mesh(tireGeometry, new MeshBasicMaterial({
     color: 0x666666,
