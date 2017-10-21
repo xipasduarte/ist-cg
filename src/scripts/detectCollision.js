@@ -31,8 +31,10 @@ export default () => {
 	);
 
 	butters.children.forEach((butter) => {
+		const butterInArray = car.state.collision.indexOf(butter.id);
+
 		if (checkCollisionBoxes(butter.state.boundingBox, carBox)) {
-			if (car.state.collision.indexOf(butter.id) !== -1) {
+			if (butterInArray !== -1) {
 				return;
 			}
 
@@ -43,6 +45,17 @@ export default () => {
 				forward: car.state.forward,
 				right: car.state.right,
 				left: car.state.left,
+			});
+		} else {
+			if (butterInArray === -1) {
+				return;
+			}
+			car.state.collision.slice(butterInArray, 1);
+			butter.state = Object.assign(butter.state, {
+				reverse: false,
+				forward: false,
+				right: false,
+				left: false,
 			});
 		}
 	});

@@ -10,9 +10,9 @@ export default () => {
 			if(cheerio.state.speed > 1){
 				cheerio.state.speed = 1;
 			}
-			else if(cheerio.state.speed <0.10){
+			else if (cheerio.state.speed < 0.10) {
 				cheerio.state.speed = 0;
-				cheerio.state.mov = new Vector3(0,0,0);
+				cheerio.state.mov = new Vector3();
 			}
 			cheerio.state.speed = cheerio.state.speed - 100 * delta;
 			updateSpeedPosition(cheerio,delta);

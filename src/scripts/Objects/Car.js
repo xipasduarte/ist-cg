@@ -114,8 +114,6 @@ const addBody = (x, y, z) => {
 export default (position, scale = new Vector3(1, 1, 1)) => {
   const car = new Group();
 
-  var mov = new Vector3(-1,0,0);
-
   car.state = {
     acceleration: 0,
     drag: 0.1,
@@ -123,11 +121,12 @@ export default (position, scale = new Vector3(1, 1, 1)) => {
     collision: [],
     turningLeft: false,
     turningRight: false,
-    mov: mov,
-    blockedForward: false,
-    blockedReverse: false,
-    blockedRight: false,
-    blockedLeft: false,
+    mov: new Vector3(),
+    isStuck: false,
+    forward: false,
+    reverse: false,
+    left: false,
+    right: false,
   };
 
   car.add(
