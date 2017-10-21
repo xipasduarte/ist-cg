@@ -14,9 +14,41 @@
 				height: 100%;
 				overflow: hidden;
 			}
+			.controls {
+				border: 1px solid green;
+				position: fixed;
+				bottom: 0;
+				right: 0;
+				padding: 10px;
+				margin: 20px;
+				color: white;
+				display: flex;
+			}
+			.control {
+				width: 100px;
+				height: 100px;
+				margin: 20px;
+				border-radius: 50%;
+				border: 1px solid white;
+				position: relative;
+			}
+			.control span {
+				border-width: 3px 0 3px 40px;
+				border-style: solid;
+				border-color: transparent transparent transparent red;
+				border-radius: 50%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform-origin: 0 0;
+			}
 		</style>
 	</head>
 	<body>
+		<div id="controls" class="controls">
+			<div class="control"><span id="speed" class="arrow"></span></div>
+		</div>
+		
 		<script src="public/app.js"></script>
 	</body>
 </html>

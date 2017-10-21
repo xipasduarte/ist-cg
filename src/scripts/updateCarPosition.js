@@ -74,8 +74,9 @@ const updateSpeedPosition = (car, delta) => {
  */
 const updateRotationPosition = (car, delta) => {
   const direction = car.state.left ? 1 : -1;
+  const mirror = car.state.speed < 0 ? -1 : 1;
   const rotation = car.state.speed === 0 ? 0 : 2.5;
-  car.rotateY(direction * rotation * delta);
+  car.rotateY(mirror * direction * rotation * delta);
 
   // Turn wheels to match rotation.
   if (

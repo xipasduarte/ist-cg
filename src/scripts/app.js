@@ -4,6 +4,7 @@ import treatCollision from './treatCollision';
 import updateCarPosition from './updateCarPosition';
 import updateOrangePosition from './updateOrangePosition';
 import updateCheerioPosition from './updateCheerioPosition';
+import updateControls from './updateControls';
 
 window.game = new Game();
 
@@ -25,6 +26,8 @@ const animate = () => {
 	updateCarPosition(delta);
 	updateOrangePosition(delta);
 	updateCheerioPosition(delta);
+
+	updateControls();
 	
 	renderer.render(scene, camera);
 };
