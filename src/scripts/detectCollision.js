@@ -34,8 +34,32 @@ export default () => {
 	butters.children.forEach(
 		(butter) =>{
 			if (checkCollisionBoxes(butter.state.boundingBox,carBox)) {
-				//car.state.collision.push(butter.id);
+				car.state.collision.push(butter.id);
+				if(butter.state.dirty){
+					return;
+				}
 				console.log('butter');
+				if(car.reverse){
+					butter.state.reverse = true;
+				}
+				if(car.forward){
+					butter.state.forward = true;
+				}
+				if(car.right && car.turningRight){
+					butter.state.right = true;
+				}
+				else if (car.left && car.turningLeft){
+					butter.state.left = true;
+				}
+				butter.state.dirty = true;
+				return;
+
+			}else if(butter.state.dirty){
+				butter.state.reverse = false;
+				butter.state.forward = false;
+				butter.state.right = false;
+				butter.state.left = false;
+				butter.state.dirty = false;
 			}
 		}
 	);
@@ -43,7 +67,7 @@ export default () => {
 	track.children.forEach(
 		(cheerio) =>{
 			if (checkCollisionBoxes(cheerio.state.boundingBox,carBox)) {
-				//check for false positives, use radius
+				//check for false positives, use radius ??
 				console.log('cheerio');
 				car.state.collision.push(cheerio.id);
 			}

@@ -15,6 +15,11 @@ export default (number) => {
   
   butter.state = {
     boundingBox: AABB,
+    forward: false,
+    reverse: false,
+    right: false,
+    left: false,
+    dirty: false,
   }
   butter.name = 'butter';
 

@@ -14,13 +14,11 @@ export default () => {
 				cheerio.state.speed = 0;
 				cheerio.state.mov = new Vector3(0,0,0);
 			}
-			cheerio.state.speed = cheerio.state.speed - 10 * delta;
+			cheerio.state.speed = cheerio.state.speed - 100 * delta;
 			updateSpeedPosition(cheerio,delta);
 			cheerio.state.boundingBox.setFromObject(cheerio);
 		}
 	)
-
-
 }
 
 const updateSpeedPosition = (cheerio, delta) => {

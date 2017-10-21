@@ -124,6 +124,10 @@ export default (position, scale = new Vector3(1, 1, 1)) => {
     turningLeft: false,
     turningRight: false,
     mov: mov,
+    blockedForward: false,
+    blockedReverse: false,
+    blockedRight: false,
+    blockedLeft: false,
   };
 
   car.add(

@@ -9,6 +9,22 @@ export default () => {
     		while( node.state.collision.length > 0 ){
 
     			var partner = window.scene.getObjectById( node.state.collision[0]);
+    	 		node.state.collision.shift();
+    			if(partner.name === 'butter' && node.name === 'car'){
+    				if(partner.state.forward){
+    					node.state.blockedForward = true;
+    				}
+    				if(partner.state.reverse){
+    					node.state.blockedReverse = true;
+    				}
+    				if(partner.state.right){
+    					node.state.blockedRight = true;
+    				}
+    				if(partner.state.left){
+    					node.state.blockedLeft = true;
+    				}
+    				return;
+    			}
     	 		var partnerOldMovement = new Vector3();
     	 		partnerOldMovement.copy(partner.state.mov);
 
@@ -18,9 +34,6 @@ export default () => {
     			collisionVector.copy(partner.position);
 
     	 		var collisionPartial;
-
-    	 		node.state.collision.shift();
-    			//remove from partner array
 
     	 		//node to partner velocity exchange
     	 		collisionVector.sub(node.position);

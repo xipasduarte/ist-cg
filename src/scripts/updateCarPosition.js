@@ -10,6 +10,21 @@ const updateSpeed = (car, delta) => {
   let acceleration = 0;
   const drag = 0.01;
 
+  //checked for directions blocked by butters
+  if( (car.state.blockedForward && car.forward) ||
+      (car.state.blockedReverse && car.reverse) ||
+      (car.state.blockedRight && car.right)     ||
+      (car.state.blockedLeft && car.left)
+      ){
+    car.state.speed = 0;
+    car.state.blockedForward = false;
+    car.state.blockedReverse = false;
+    car.state.blockedRight = false;
+    car.state.blockedLeft = false;
+    return;
+  }
+
+
   // TODO: Fix aceleration variations.
   if (car.forward) {
     acceleration = 2.5;
@@ -116,8 +131,8 @@ export default () => {
   
   // Update speed and position.
   if (car.forward || car.reverse || car.state.speed !== 0) {
-    updateSpeed(car, delta);
-    updateSpeedPosition(car, delta);
+      updateSpeed(car, delta);
+      updateSpeedPosition(car, delta);
   }
   
   // Update car orientation when either left or right keys are pressed.
