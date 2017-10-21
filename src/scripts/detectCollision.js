@@ -25,54 +25,34 @@ export default () => {
 	oranges.children.forEach(
 		(orange) => {
 			if (checkCollisionBoxes(orange.state.boundingBox, carBox)) {
-				console.log('bum');
 				window.game.restart();
 			}
 		}
 	);
 
-	butters.children.forEach(
-		(butter) =>{
-			if (checkCollisionBoxes(butter.state.boundingBox,carBox)) {
-				car.state.collision.push(butter.id);
-				if(butter.state.dirty){
-					return;
-				}
-				console.log('butter');
-				if(car.reverse){
-					butter.state.reverse = true;
-				}
-				if(car.forward){
-					butter.state.forward = true;
-				}
-				if(car.right && car.turningRight){
-					butter.state.right = true;
-				}
-				else if (car.left && car.turningLeft){
-					butter.state.left = true;
-				}
-				butter.state.dirty = true;
+	butters.children.forEach((butter) => {
+		if (checkCollisionBoxes(butter.state.boundingBox, carBox)) {
+			if (car.state.collision.indexOf(butter.id) !== -1) {
 				return;
-
-			}else if(butter.state.dirty){
-				butter.state.reverse = false;
-				butter.state.forward = false;
-				butter.state.right = false;
-				butter.state.left = false;
-				butter.state.dirty = false;
 			}
-		}
-	);
 
-	track.children.forEach(
-		(cheerio) =>{
-			if (checkCollisionBoxes(cheerio.state.boundingBox,carBox)) {
-				//check for false positives, use radius ??
-				console.log('cheerio');
-				car.state.collision.push(cheerio.id);
-			}
+			car.state.collision.push(butter.id);
+
+			butter.state = Object.assign(butter.state, {
+				reverse: car.state.reverse,
+				forward: car.state.forward,
+				right: car.state.right,
+				left: car.state.left,
+			});
 		}
-	);
+	});
+
+	track.children.forEach((cheerio) =>{
+		if (checkCollisionBoxes(cheerio.state.boundingBox, carBox)) {
+			//check for false positives, use radius ??
+			cheerio.state.collision.push(car.id);
+		}
+	});
 
 	track.children.forEach(
 		(referenceNode) =>{
@@ -82,9 +62,7 @@ export default () => {
 						return;
 					}
 					if(checkCollisionBoxes(referenceNode.state.boundingBox,trackNode.state.boundingBox)){
-						console.log('cheerio on cheerio murder');
-						referenceNode.state.collision.push(trackNode.id);
-						
+						referenceNode.state.collision.push(trackNode.id);		
 					}
 				}
 			)
