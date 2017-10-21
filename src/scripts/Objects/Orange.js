@@ -1,17 +1,41 @@
-import { Box3, Group, SphereGeometry, MeshBasicMaterial, Mesh, Vector3 } from 'three';
+import { Box3, BoxGeometry, ConeGeometry, Group, SphereGeometry, MeshBasicMaterial, Mesh, Vector3 } from 'three';
 
 export default (number) => {
   const oranges = new Group();
   oranges.name = 'oranges';
 
   // Common characteristics.
-  const geometry = new SphereGeometry(2);
-  const material = new MeshBasicMaterial({
-    color: 0xcc5300,
-    wireframe: window.game.state.wireframe,
-  });
-  const orange = new Mesh(geometry, material);
+  const orange = new Mesh(
+    new SphereGeometry(2),
+    new MeshBasicMaterial({
+      color: 0xcc5300,
+      wireframe: window.game.state.wireframe,
+    })
+  );
+  
+  const stickAndLeaf = new Group();
+  const stick = new Mesh(
+    new ConeGeometry(0.1, 1, 5),
+    new MeshBasicMaterial({
+      color: 0x00ff00,
+      wireframe: window.game.state.wireframe,
+    })
+  );
+  const leaf = new Mesh(
+    new BoxGeometry(1, .05, 1),
+    new MeshBasicMaterial({
+      color: 0x00ff00,
+      wireframe: window.game.state.wireframe,
+    })
+  );
+
+  stickAndLeaf.add(stick, leaf);
+  leaf.position.set(0.5, 0, 0.5);
+
   orange.name = 'orange';
+  orange.add(stickAndLeaf);
+  stickAndLeaf.position.set(0, 2.5, 0);
+  stickAndLeaf.rotateX(Math.PI);
 
   // Orange spawn limits.
   const safe_x = 120;
@@ -26,14 +50,18 @@ export default (number) => {
       Math.random() * safe_z - safe_z/2
     );
 
+    const directionVector = new Vector3(0.5 - Math.random(), 0, 0.5 - Math.random()).normalize();
+    const rotationVector = new Vector3(directionVector.z, 0, -directionVector.x);
+    
     newOrange.state = {
       boundingBox: new Box3().setFromObject(newOrange),
-      speed: 0.1 * (1 + window.clock.getElapsedTime() / 10) + Math.random() * 0.2,
-      direction: new Vector3(0.5 - Math.random(), 0, 0.5 - Math.random()).normalize(),
+      speed: 5 * (1 + Math.floor(window.clock.getElapsedTime() / 30)) + Math.random() * 3,
+      direction: directionVector,
+      rotationVector: rotationVector,
     }
     
     oranges.add(newOrange);
   }
-
+  
   return oranges;
 }

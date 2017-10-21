@@ -21,7 +21,7 @@ export default () => {
 
   // Add boxes
   scene.traverse((node) => {
-    if(['', 'oranges', 'butters', 'table', 'track'].indexOf(node.name) !== -1) {
+    if(['car', 'orange', 'butter', 'cheerio'].indexOf(node.name) === -1) {
       return;
     }
     const box = new BoxHelper( node, 0xffff00 );

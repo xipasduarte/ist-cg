@@ -7,31 +7,26 @@ import { Matrix4, Vector3 } from 'three';
  * @param {int} delta The delta between the current and last updates.
  */
 const updateSpeed = (car, delta) => {
-  let acceleration = 0;
-  const drag = 0.01;
-
-  // TODO: Fix aceleration variations.
-  if (car.forward) {
-    acceleration = 2.5;
-  }
-  if(car.reverse) {
-    acceleration = -1.5;
+  if (car.forward && car.state.acceleration <= 50) {
+    car.state.acceleration += 10;
+  } else if(car.reverse && car.state.acceleration >= -50) {
+    car.state.acceleration -= 25;
+  } else {
+    car.state.acceleration = 0;
   }
 
-  car.state.speed = car.state.speed + acceleration * delta;
-
-  // Apply drag.
-  car.state.speed = car.state.speed * (1 - drag);
+  // Width drag effect.
+  car.state.speed = car.state.speed * 0.99 + car.state.acceleration * delta;
 
   // Make full stop, if differance is marginal to zero speed.
-  if (!car.forward && !car.reverse && Math.abs(car.state.speed) < 0.05) {
+  if (!car.forward && !car.reverse && Math.abs(car.state.speed) < 2) {
     car.state.speed = 0;
   }
   
   // Maximize the speed.
   const speedDirection = car.state.speed / Math.abs(car.state.speed);
-  if (Math.abs(car.state.speed) > 0.5) {
-    car.state.speed = speedDirection * 0.5;
+  if (Math.abs(car.state.speed) > 50) {
+    car.state.speed = speedDirection * 50;
   }
 };
 
@@ -44,7 +39,7 @@ const updateSpeed = (car, delta) => {
 const updateSpeedPosition = (car, delta) => {
   const matrix = new Matrix4();
 
-  matrix.setPosition(car.getWorldDirection().multiplyScalar(car.state.speed));
+  matrix.setPosition(car.getWorldDirection().multiplyScalar(car.state.speed * delta));
   car.applyMatrix(matrix);
 
   if (
@@ -99,7 +94,7 @@ const turnWheels = (wheels, direction) => {
  * @param {double} delta
  */
 const rotateWheels = (car, delta) => {
-  const rotation = -car.state.speed * delta * 10;
+  const rotation = -car.state.speed * delta / 2;
   car.traverse((node) => {
     if (node.name !== 'wheel') {
       return;
@@ -111,9 +106,8 @@ const rotateWheels = (car, delta) => {
 /**
  * Update car related movements.
  */
-export default () => {
+export default (delta) => {
   const car = scene.getObjectByName('car');
-  const delta = clock.getDelta();
   
   // Update speed and position.
   if (car.forward || car.reverse || car.state.speed !== 0) {

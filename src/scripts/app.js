@@ -6,6 +6,8 @@ import updateOrangePosition from './updateOrangePosition';
 window.game = new Game();
 
 const animate = () => {
+	const delta = window.clock.getDelta();
+
 	requestAnimationFrame(animate);
 
 	scene.traverse((node) => {
@@ -16,8 +18,8 @@ const animate = () => {
 	});
 
 	detectCollision();
-	updateCarPosition();
-	updateOrangePosition();
+	updateCarPosition(delta);
+	updateOrangePosition(delta);
 
 	renderer.render(scene, camera);
 };
