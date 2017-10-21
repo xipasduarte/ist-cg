@@ -7,9 +7,16 @@ import { Matrix4, Vector3 } from 'three';
  * @param {int} delta The delta between the current and last updates.
  */
 const updateSpeed = (car, delta) => {
-  if (car.forward && car.state.acceleration <= 50) {
+
+  // Checked if there are collisions with butters.
+  if (car.state.isStuck && car.state.collision.length !== 0){
+    car.state.speed = 0;
+    return;
+  }
+  
+  if (car.state.forward && car.state.acceleration <= 50) {
     car.state.acceleration += 10;
-  } else if(car.reverse && car.state.acceleration >= -50) {
+  } else if(car.state.reverse && car.state.acceleration >= -50) {
     car.state.acceleration -= 25;
   } else {
     car.state.acceleration = 0;
@@ -19,8 +26,14 @@ const updateSpeed = (car, delta) => {
   car.state.speed = car.state.speed * 0.99 + car.state.acceleration * delta;
 
   // Make full stop, if differance is marginal to zero speed.
-  if (!car.forward && !car.reverse && Math.abs(car.state.speed) < 2) {
+  if (!car.state.forward && !car.state.reverse && Math.abs(car.state.speed) < 0.05) {
     car.state.speed = 0;
+    car.state.mov = new Vector3(1,0,0);
+  }
+
+  // If reversed, change movement vector
+  if (car.state.reverse) {
+    car.state.mov = new Vector3(-1,0,0);
   }
   
   // Maximize the speed.
@@ -60,18 +73,18 @@ const updateSpeedPosition = (car, delta) => {
  * @param {int} delta The delta between the current and last updates.
  */
 const updateRotationPosition = (car, delta) => {
-  const direction = car.left ? 1 : -1;
+  const direction = car.state.left ? 1 : -1;
   const rotation = car.state.speed === 0 ? 0 : 2.5;
   car.rotateY(direction * rotation * delta);
 
   // Turn wheels to match rotation.
   if (
-    (car.left && !car.turningLeft) ||
-    (car.right && !car.turningRight)
+    (car.state.left && !car.state.turningLeft) ||
+    (car.state.right && !car.state.turningRight)
   ) {
     turnWheels(car.getObjectByName('front').children, car.state.speed < 0 ? -direction : direction);
-    car.turningLeft = car.left;
-    car.turningRight = car.right;
+    car.state.turningLeft = car.state.left;
+    car.state.turningRight = car.state.right;
   }
 };
 
@@ -110,20 +123,20 @@ export default (delta) => {
   const car = scene.getObjectByName('car');
   
   // Update speed and position.
-  if (car.forward || car.reverse || car.state.speed !== 0) {
-    updateSpeed(car, delta);
-    updateSpeedPosition(car, delta);
+  if (car.state.forward || car.state.reverse || car.state.speed !== 0) {
+      updateSpeed(car, delta);
+      updateSpeedPosition(car, delta);
   }
   
   // Update car orientation when either left or right keys are pressed.
-  if (car.left || car.right) {
+  if (car.state.left || car.state.right) {
     updateRotationPosition(car, delta);
   }
 
   // Remove front wheel Y rotation when the car is not turning.
-  if (!car.left && !car.right && (car.turningLeft || car.turningRight)) {
+  if (!car.state.left && !car.state.right && (car.state.turningLeft || car.state.turningRight)) {
     turnWheels(car.getObjectByName('front').children, 0);
-    car.turningLeft = false;
-    car.turningRight = false;
+    car.state.turningLeft = false;
+    car.state.turningRight = false;
   }
 };

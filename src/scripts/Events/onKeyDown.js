@@ -16,16 +16,16 @@ export default (e) => {
       });
       break;
     case 37: // Left arrow
-      car.left = true;
+      car.state.left = true;
       break;
     case 38: // Top arrow
-      car.forward = true;
+      car.state.forward = true;
       break;
     case 39: // Right
-      car.right = true;
+      car.state.right = true;
       break;
     case 40: // Down arrow
-      car.reverse = true;
+      car.state.reverse = true;
       break;
     case 49: // 1
       Camera('orthogonal');
