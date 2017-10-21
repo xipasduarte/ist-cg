@@ -5,6 +5,7 @@ const addCheerio = (group, x, y, z) => {
 	const geometry = new TorusGeometry(0.75, 0.3, 5, 10);
 	const material = new MeshBasicMaterial({color: 0xcccc00, wireframe: true});
 	const cheerio = new Mesh(geometry, material);
+	var mov = new Vector3(0,0,0);
 
 	cheerio.name = 'cheerio';
 	cheerio.position.set(x,y,z);
@@ -12,8 +13,9 @@ const addCheerio = (group, x, y, z) => {
 
 	cheerio.state = {
 		boundingBox: AABB,
-		velocity: 0 ,
-		collision: []
+		speed: 0,
+		mov: mov,
+		collision: [],
 	};
 
 	AABB.setFromObject(cheerio);
@@ -54,14 +56,14 @@ export default (x, y, z) => {
 	const track = new Group();
 	track.name = 'track';
 	//outer rim of track
-	createSemiSphere(track, -30, 2, 0, 30, Math.PI/2, Math.PI/18, 1);	
-	createSemiSphere(track, 30, 2, 0, 30, 3*Math.PI/2, Math.PI/18, 1);
-	createLine(track, -30, 2, -30, 60, 6);
-	createLine(track, -30, 2, 30, 60, 6);
+	createSemiSphere(track, -30, 2, 0, 30, Math.PI/2, Math.PI/10, 1);	
+	createSemiSphere(track, 30, 2, 0, 30, 3*Math.PI/2, Math.PI/10, 1);
+	createLine(track, -30, 2, -30, 60, 10);
+	createLine(track, -30, 2, 30, 60, 10);
 	//inner rim of track
-	createSemiSphere(track, -30, 2, 0, 15, Math.PI/2, Math.PI/14, 1);	
-	createSemiSphere(track, 30, 2, 0, 15, 3*Math.PI/2, Math.PI/14, 1);
-	createLine(track, -30, 2, -15, 60, 4);
-	createLine(track, -30, 2, 15, 60, 4);
+	createSemiSphere(track, -30, 2, 0, 15, Math.PI/2, Math.PI/6, 1);	
+	createSemiSphere(track, 30, 2, 0, 15, 3*Math.PI/2, Math.PI/7, 1);
+	createLine(track, -30, 2, -15, 60, 6);
+	createLine(track, -30, 2, 15, 60, 6);
 	return track;
 }

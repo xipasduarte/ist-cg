@@ -19,15 +19,15 @@ export default () => {
     Butter(5)
   );
 
-  // Add boxes
-  scene.traverse((node) => {
-    if(['', 'oranges', 'butters', 'table', 'track'].indexOf(node.name) !== -1) {
-      return;
-    }
-    const box = new BoxHelper( node, 0xffff00 );
-    box.name = 'AABB';
-    scene.add(box);
-  });
+  // // Add boxes
+  // scene.traverse((node) => {
+  //   if(['', 'oranges', 'butters', 'table', 'track'].indexOf(node.name) !== -1) {
+  //     return;
+  //   }
+  //   const box = new BoxHelper( node, 0xffff00 );
+  //   box.name = 'AABB';
+  //   scene.add(box);
+  // });
 
   window.scene = scene;
 }

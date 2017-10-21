@@ -1,6 +1,8 @@
 import Game from './Game';
 import detectCollision from './detectCollision';
 import updateCarPosition from './updateCarPosition';
+import treatCollision from './treatCollision';
+import updateCheerioPosition from './updateCheerioPosition';
 
 window.game = new Game();
 
@@ -15,8 +17,12 @@ const animate = () => {
 	});
 
 	detectCollision();
-	updateCarPosition();
+	
+	treatCollision();
 
+	updateCarPosition();
+	updateCheerioPosition();
+	
 	renderer.render(scene, camera);
 };
 

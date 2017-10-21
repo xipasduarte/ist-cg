@@ -26,6 +26,12 @@ const updateSpeed = (car, delta) => {
   // Make full stop, if differance is marginal to zero speed.
   if (!car.forward && !car.reverse && Math.abs(car.state.speed) < 0.05) {
     car.state.speed = 0;
+    car.state.mov = new Vector3(1,0,0);
+  }
+
+  // If reversed, change movement vector
+  if (car.reverse) {
+    car.state.mov = new Vector3(-1,0,0);
   }
   
   // Maximize the speed.
