@@ -1,4 +1,4 @@
-import { Scene, AxisHelper, Vector3 } from 'three';
+import { Scene, AxisHelper, Vector3, BoxHelper } from 'three';
 import Orange from './Objects/Orange';
 import Butter from './Objects/Butter';
 import Car from './Objects/Car';
@@ -18,6 +18,16 @@ export default () => {
     Orange(3),
     Butter(5)
   );
+
+  // Add boxes
+  scene.traverse((node) => {
+    if(['car', 'orange', 'butter', 'cheerio'].indexOf(node.name) === -1) {
+      return;
+    }
+    const box = new BoxHelper( node, 0xffff00 );
+    box.name = 'AABB';
+    scene.add(box);
+  });
 
   window.scene = scene;
 }

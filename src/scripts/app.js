@@ -1,53 +1,39 @@
-import { Clock } from 'three';
-
-import Camera from './Camera';
-import Scene from './Scene';
-import Renderer from './Renderer';
-
-import onResize from './Events/onResize';
-import onKeyDown from './Events/onKeyDown';
-import onKeyUp from './Events/onKeyUp';
-
+import Game from './Game';
+import detectCollision from './detectCollision';
+import treatCollision from './treatCollision';
 import updateCarPosition from './updateCarPosition';
+import updateOrangePosition from './updateOrangePosition';
+import updateCheerioPosition from './updateCheerioPosition';
+import updateControls from './updateControls';
 
-const init = () => {
-	// Add state.
-	window.gameState = {
-		wireframe: true,
-		time: 0,
-		car: {
-			forward: false,
-			reverse: false,
-			left: false,
-			right: false,
-		},
-		camera: {
-			type: 'ortogonal',
-		},
-	};
-	window.clock = new Clock();
-
-	Scene();
-	Camera('orthogonal');
-	Renderer();
-
-	document.body.appendChild(renderer.domElement);
-
-	window.addEventListener('resize', onResize);
-	window.addEventListener('keydown', onKeyDown);
-	window.addEventListener('keyup', onKeyUp);
-}
+window.game = new Game();
 
 const animate = () => {
+	const delta = window.clock.getDelta();
+
 	requestAnimationFrame(animate);
 
-	updateCarPosition();
+	scene.traverse((node) => {
+		if(node.name !== 'AABB') {
+			return;
+		}
+		node.update();
+	});
 
+	detectCollision();
+	treatCollision();
+	
+	updateCarPosition(delta);
+	updateOrangePosition(delta);
+	updateCheerioPosition(delta);
+
+	updateControls();
+	
 	renderer.render(scene, camera);
 };
 
 // Setup Scene, Camera and Objects.
-init();
+window.game.init();
 
 // Start "update/display" loop.
 animate();

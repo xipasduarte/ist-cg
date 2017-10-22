@@ -46,7 +46,7 @@ const createGlass = () => {
  */
 const addWheel = (x, y, z) => {
   const wheel = new Group();
-  const tireGeometry = new TorusGeometry(.75, .30, 10, 10);
+  const tireGeometry = new TorusGeometry(.75, .30, 5, 10);
   const rimGeometry = new RingGeometry(.1, .5);
   const tire = new Mesh(tireGeometry, new MeshBasicMaterial({
     color: 0x666666,
@@ -116,18 +116,24 @@ export default (position, scale = new Vector3(1, 1, 1)) => {
 
   car.state = {
     acceleration: 0,
-    drag: 0.1,
     speed: 0,
+    collision: [],
     turningLeft: false,
     turningRight: false,
+    mov: new Vector3(),
+    isStuck: false,
+    forward: false,
+    reverse: false,
+    left: false,
+    right: false,
   };
 
   car.add(
-    new AxisHelper(5),
-    addBody(0, 0, 0)
+    addBody(0, 0, 0),
   );
   car.name = 'car';
   car.rotateY(-Math.PI/2);
+  
   car.position.copy(position);
   car.scale.copy(scale);
 
