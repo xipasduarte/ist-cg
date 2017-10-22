@@ -58,6 +58,8 @@ export default (number) => {
       speed: 5 * (1 + Math.floor(window.clock.getElapsedTime() / 30)) + Math.random() * 3,
       direction: directionVector,
       rotationVector: rotationVector,
+      spawnDelay: 2 * Math.random(),
+      hasFallen: false,
     }
     
     oranges.add(newOrange);

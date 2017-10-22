@@ -10,14 +10,15 @@ const respawnOrange = (orange) => {
     orange.setRotationFromAxisAngle(orange.state.rotationVector, 0);
     
     // Orange spawn limits.
-    const safe_x = 120;
-    const safe_z = 80;
+    const safe_x = window.game.state.table.width;
+    const safe_z = window.game.state.table.height;
 
     orange.position.set(
         Math.random() * safe_x - safe_x/2,
         3,
         Math.random() * safe_z - safe_z/2
     );
+    orange.scale.copy(new Vector3(1, 1, 1));
 
     const baseSpeed = 5 * (1 + Math.floor(window.clock.getElapsedTime() / 30));
     const directionVector = new Vector3(0.5 - Math.random(), 0, 0.5 - Math.random()).normalize();
@@ -28,6 +29,8 @@ const respawnOrange = (orange) => {
         speed: baseSpeed * (1 + Math.random() * 0.2),
         direction: directionVector,
         rotationVector: rotationVector,
+        spawnDelay: 2 * Math.random(),
+        hasFallen: false,
     });
 };
 
@@ -37,18 +40,32 @@ const respawnOrange = (orange) => {
  * @param {THREE.Object3D} orange 
  */
 const moveOrange = (orange, delta) => {
-    const distance = orange.state.speed * delta;
-
-    orange.position.addScaledVector(orange.state.direction, distance);
-    orange.rotateOnAxis(orange.state.rotationVector, distance/2);
-    orange.state.boundingBox.setFromObject(orange);
+    const horizontalLimit = window.game.state.table.width / 2 + orange.geometry.parameters.radius;
+    const verticalLimit = window.game.state.table.height / 2 + orange.geometry.parameters.radius;
 
     if (
-        Math.abs(orange.position.x) > 70 ||
-        Math.abs(orange.position.z) > 50
+        Math.abs(orange.position.x) > horizontalLimit ||
+        Math.abs(orange.position.z) > verticalLimit
     ) {
-        respawnOrange(orange);
+        const emptyVector = new Vector3();
+        orange.state.hasFallen = true;
+        orange.state.spawnDelay -= delta;
+
+        if (orange.state.spawnDelay < 0) {
+            respawnOrange(orange);
+        } else if (!orange.scale.equals(emptyVector)) {
+            orange.scale.addScalar(-2*delta);
+            orange.scale.max(emptyVector);
+        }
+
+        return;
     }
+
+    const distance = orange.state.speed * delta;
+    
+    orange.position.addScaledVector(orange.state.direction, distance);
+    orange.rotateOnAxis(orange.state.rotationVector, distance / orange.geometry.parameters.radius);
+    orange.state.boundingBox.setFromObject(orange);
 };
 
 export default (delta) => {

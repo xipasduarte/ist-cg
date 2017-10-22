@@ -12,6 +12,10 @@ class Game {
     constructor() {
         this.state = {
             wireframe: true,
+            table: {
+                width: 140,
+                height: 100,
+            },
         };
     }
     

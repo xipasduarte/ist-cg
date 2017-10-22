@@ -25,8 +25,8 @@ const addTableLeg = (group, x, y, z) => {
 }
 
 export default (x, y, z) => {
-  const width = 140;
-  const height = 100;
+  const width = window.game.state.table.width;
+  const height = window.game.state.table.height;
   const table = new Group();
 
   addTableTop(table, width, height, 0, 0, 0);
