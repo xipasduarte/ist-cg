@@ -9,7 +9,7 @@ const addCheerio = (group, x, y, z) => {
 	const position = new Vector3(x, y, z);
 
 	cheerio.name = 'cheerio';
-	cheerio.position.set(x,y,z);
+	cheerio.position.copy(position);
 	cheerio.rotation.set(Math.PI/2,0,0);
 
 	cheerio.state = {

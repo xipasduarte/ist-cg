@@ -47,7 +47,7 @@ const moveOrange = (orange, delta) => {
         Math.abs(orange.position.x) > horizontalLimit ||
         Math.abs(orange.position.z) > verticalLimit
     ) {
-        const emptyVector = new Vector3();
+        const emptyVector = new Vector3(0.0001, 0.0001, 0.0001);
         orange.state.hasFallen = true;
         orange.state.spawnDelay -= delta;
 

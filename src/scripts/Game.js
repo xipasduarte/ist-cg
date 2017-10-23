@@ -39,6 +39,15 @@ class Game {
         car.position.copy(new Vector3(0, 3, 25));
         window.clock.stop();
         window.clock.start();
+
+        // Reposition cheerios.
+        const cheerios = window.scene.getObjectByName('track');
+        cheerios.children.forEach((cheerio) => {
+            cheerio.state.speed = 0;
+            cheerio.state.mov = new Vector3();
+            cheerio.position.copy(cheerio.state.initialPosition);
+            cheerio.state.boundingBox.setFromObject(cheerio);
+        });
     }
 };
 
