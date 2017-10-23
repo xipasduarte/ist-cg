@@ -17,8 +17,8 @@ export default (delta) => {
 			cheerio.state.mov = new Vector3();
 		}
 		
-		cheerio.state.speed = cheerio.state.speed * delta * 0.8;
-		cheerio.position.addScaledVector(cheerio.state.mov, cheerio.state.speed);
+		cheerio.state.speed = cheerio.state.speed- 80*delta;
+		cheerio.position.addScaledVector(cheerio.state.mov, cheerio.state.speed*delta);
 		cheerio.state.boundingBox.setFromObject(cheerio);
 	});
 };

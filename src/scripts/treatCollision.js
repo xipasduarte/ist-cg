@@ -47,7 +47,13 @@ const cheerioCollision = (reference) => {
 		reference.state.mov.normalize();
 		reference.state.speed += Math.abs(target.state.speed * collisionPartial);
 
+
+		if(reference.state.speed < 2){
+			reference.state.speed = 5;
+		}
+
 		if (target.name === 'car') {
+			reference.state.speed = reference.state.speed*0.9;
 			return;
 		}
 		// Reference to target velocity exchange.
@@ -62,8 +68,12 @@ const cheerioCollision = (reference) => {
 		target.state.speed += Math.abs(referenceOldVelocity * collisionPartial);
 
 		//cheerio on cheerio, reduce speed
-		reference.state.speed = reference.state.speed *(1-0.3);
-		target.state.speed = target.state.speed * (1-0.3);
+		reference.state.speed = reference.state.speed*0.8;
+		
+		if(target.state.speed < 2){
+			target.state.speed = 2;
+		}
+		target.state.speed = target.state.speed*0.8;
 	});
 
 	reference.state.collision = [];
