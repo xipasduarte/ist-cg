@@ -1,4 +1,4 @@
-import { BoxHelper, Mesh } from 'three';
+import { Mesh } from 'three';
 
 import Camera from './../Camera';
 
@@ -36,15 +36,5 @@ export default (e) => {
     case 51: // 3
       Camera('thirdPerson');
       break;
-    case 52: // 4
-      // Add boxes
-      scene.traverse((node) => {
-        if(['car', 'orange', 'butter', 'cheerio'].indexOf(node.name) === -1) {
-          return;
-        }
-        const box = new BoxHelper( node, 0xffff00 );
-        box.name = 'AABB';
-        scene.add(box);
-      });
   }
 }
