@@ -20,7 +20,7 @@ const respawnOrange = (orange) => {
     );
     orange.scale.copy(new Vector3(1, 1, 1));
 
-    const baseSpeed = 5 * (1 + Math.floor(window.clock.getElapsedTime() / 30));
+    const baseSpeed = 5 * (1 + Math.floor(window.game.state.clock.getElapsedTime() / 30));
     const directionVector = new Vector3(0.5 - Math.random(), 0, 0.5 - Math.random()).normalize();
     const rotationVector = new Vector3(directionVector.z, 0, -directionVector.x);
 
@@ -69,7 +69,7 @@ const moveOrange = (orange, delta) => {
 };
 
 export default (delta) => {
-    const oranges = scene.getObjectByName('oranges');
+    const oranges = window.game.state.scene.getObjectByName('oranges');
 
     oranges.children.forEach((orange) => {
         moveOrange(orange, delta);

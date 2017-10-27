@@ -121,7 +121,7 @@ const rotateWheels = (car, delta) => {
  * Update car related movements.
  */
 export default (delta) => {
-  const car = scene.getObjectByName('car');
+  const car = window.game.state.scene.getObjectByName('car');
   
   // Update speed and position.
   if (car.state.forward || car.state.reverse || car.state.speed !== 0) {

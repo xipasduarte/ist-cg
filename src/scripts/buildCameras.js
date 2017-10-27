@@ -17,26 +17,18 @@ const perspective = (x, y, z, lookAt) => {
   return camera;
 };
 
-export default (type) => {
-  const car = window.scene.getObjectByName('car');
-  const existingCameras = window.scene.getObjectByName('camera');
-  let camera;
+const buildThirdPersonCamera = (scene) => {
+  const car = scene.getObjectByName('car');
+  const camera = perspective(0, 5, -10, car.position);
+  car.add(camera);
+  camera.lookAt(new Vector3(0, 0, 0));
+  return camera;
+}
 
-  car.remove(existingCameras);
-
-  switch (type) {
-    case 'orthogonal':
-      camera = orthogonal(0, 10, 0, scene.position);
-      break;
-    case 'thirdPerson':
-      camera = perspective(0, 5, -10, car.position);
-      car.add(camera);
-      camera.lookAt(new Vector3(0, 0, 0));
-      break;
-    default:
-      camera = perspective(75, 75, 75, scene.position);
-      break;
-  }
-
-  window.camera = camera;
+export default (scene) => {
+  return {
+    orthogonal: orthogonal(0, 10, 0, scene.position),
+    thirdPerson: buildThirdPersonCamera(scene),
+    perspective: perspective(75, 75, 75, scene.position),
+  };
 };

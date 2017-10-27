@@ -1,9 +1,7 @@
 import { Mesh } from 'three';
 
-import Camera from './../Camera';
-
 export default (e) => {
-  const car = window.scene.getObjectByName('car');
+  const car = window.game.state.scene.getObjectByName('car');
   switch(e.keyCode) {
     case 65:
       scene.traverseVisible((node) => {
@@ -28,13 +26,13 @@ export default (e) => {
       car.state.reverse = true;
       break;
     case 49: // 1
-      Camera('orthogonal');
+      this.state.currentCamera = this.state.cameras.orthogonal;
       break;
     case 50: // 2
-      Camera('perspective');
+      this.state.currentCamera = this.state.cameras.perspective;
       break;
     case 51: // 3
-      Camera('thirdPerson');
+      this.state.currentCamera = this.state.cameras.thirdPerson;
       break;
   }
 }

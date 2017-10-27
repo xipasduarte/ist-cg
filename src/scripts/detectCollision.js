@@ -15,10 +15,10 @@ const checkCollisionBoxes = (A,B) => {
 };
 
 export default () => {
-	const car = window.scene.getObjectByName('car');
-	const oranges = window.scene.getObjectByName('oranges');
-	const track = window.scene.getObjectByName('track');
-	const butters = window.scene.getObjectByName('butters');
+	const car = window.game.state.scene.getObjectByName('car');
+	const oranges = window.game.state.scene.getObjectByName('oranges');
+	const track = window.game.state.scene.getObjectByName('track');
+	const butters = window.game.state.scene.getObjectByName('butters');
 	const carBox = new Box3();
 	carBox.setFromObject(car);
 

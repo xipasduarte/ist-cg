@@ -1,7 +1,7 @@
 import { Matrix4, Vector3} from 'three';
 
 export default (delta) => {
-	const track = scene.getObjectByName('track');
+	const track = window.game.state.scene.getObjectByName('track');
 
 	track.children.forEach((cheerio) => {
 		if (cheerio.state.speed === 0) {
