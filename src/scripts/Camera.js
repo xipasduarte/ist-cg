@@ -34,7 +34,7 @@ export default (type) => {
       camera.lookAt(new Vector3(0, 0, 0));
       break;
     default:
-      camera = perspective(75, 75, 75, scene.position);
+      camera = perspective(0, 2, 40, scene.position);
       break;
   }
 
