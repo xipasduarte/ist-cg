@@ -1,10 +1,10 @@
 import { AxisHelper, Vector3 } from 'three';
 
-import Orange from './Objects/Orange';
-import Butter from './Objects/Butter';
-import Car from './Objects/Car';
-import Table from './Objects/Table';
-import Track from './Objects/Track';
+import Orange from './../Objects/Orange';
+import Butter from './../Objects/Butter';
+import Car from './../Objects/Car';
+import Table from './../Objects/Table';
+import Track from './../Objects/Track';
 
 class BuildScene {
   static build(game) {

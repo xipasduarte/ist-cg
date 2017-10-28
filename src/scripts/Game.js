@@ -1,8 +1,8 @@
 import { Clock, Scene, Vector3, BoxHelper, WebGLRenderer } from 'three';
 
-import BuildCameras from './BuildCameras';
-import BuildScene from './BuildScene';
-import BuildRenderer from './BuildRenderer';
+import BuildCameras from './Builders/BuildCameras';
+import BuildScene from './Builders/BuildScene';
+import BuildRenderer from './Builders/BuildRenderer';
 
 import onResize from './Events/onResize';
 import onKeyDown from './Events/onKeyDown';
