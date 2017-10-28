@@ -1,5 +1,5 @@
 export default (e) => {
-  const car = window.game.state.scene.getObjectByName('car');
+  const car = window.game.scene.getObjectByName('car');
 
   switch(e.keyCode) {
     case 37: // Left arrow

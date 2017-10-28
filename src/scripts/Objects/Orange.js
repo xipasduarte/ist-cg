@@ -12,7 +12,7 @@ export default (number) => {
       wireframe: window.game.state.wireframe,
     })
   );
-  
+
   const stickAndLeaf = new Group();
   const stick = new Mesh(
     new ConeGeometry(0.1, 1, 5),
@@ -52,18 +52,18 @@ export default (number) => {
 
     const directionVector = new Vector3(0.5 - Math.random(), 0, 0.5 - Math.random()).normalize();
     const rotationVector = new Vector3(directionVector.z, 0, -directionVector.x);
-    
+
     newOrange.state = {
       boundingBox: new Box3().setFromObject(newOrange),
-      speed: 5 * (1 + Math.floor(window.game.state.clock.getElapsedTime() / 30)) + Math.random() * 3,
+      speed: 5 * (1 + Math.floor(window.game.clock.getElapsedTime() / 30)) + Math.random() * 3,
       direction: directionVector,
       rotationVector: rotationVector,
       spawnDelay: 2 * Math.random(),
       hasFallen: false,
     }
-    
+
     oranges.add(newOrange);
   }
-  
+
   return oranges;
 }

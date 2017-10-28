@@ -12,7 +12,7 @@ export default (number) => {
   const safe_x = 120;
   const safe_z = 80;
   const AABB = new Box3();
-  
+
   butter.state = {
     boundingBox: AABB,
     collision: [],
@@ -25,18 +25,17 @@ export default (number) => {
 
   for (let index = 0; index < number; index++) {
     const newButter = butter.clone();
-    
-        newButter.position.set(
-          Math.random() * safe_x - safe_x/2,
-          3,
-          Math.random() * safe_z - safe_z/2
-        );
-    
-        newButter.state = {
-          boundingBox: new Box3().setFromObject(newButter),
-        }
-        
-        butters.add(newButter);
+    newButter.position.set(
+      Math.random() * safe_x - safe_x/2,
+      3,
+      Math.random() * safe_z - safe_z/2
+    );
+
+    newButter.state = {
+      boundingBox: new Box3().setFromObject(newButter),
+    }
+
+    butters.add(newButter);
   }
 
   return butters;

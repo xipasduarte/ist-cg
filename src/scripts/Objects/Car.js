@@ -30,7 +30,7 @@ const createGlass = () => {
 
   const glass = new Mesh(glassGeometry, new MeshBasicMaterial({ color: 0x0000ff, wireframe: true }));
 
-  glass.rotateY(Math.PI);  
+  glass.rotateY(Math.PI);
   glass.rotateZ(Math.PI/2);
   glass.position.set(1.5, 0, 1.5);
 
@@ -39,10 +39,10 @@ const createGlass = () => {
 
 /**
  * Add wheel to group in specific position.
- * 
- * @param {double} x 
- * @param {double} y 
- * @param {double} z 
+ *
+ * @param {double} x
+ * @param {double} y
+ * @param {double} z
  */
 const addWheel = (x, y, z) => {
   const wheel = new Group();
@@ -69,16 +69,16 @@ const addWheel = (x, y, z) => {
 
 /**
  * Add car body to group.
- * 
- * @param {double} x 
- * @param {double} y 
- * @param {double} z 
+ *
+ * @param {double} x
+ * @param {double} y
+ * @param {double} z
  */
 const addBody = (x, y, z) => {
   const body = new Group();
   const frontGeometry = new BoxGeometry(3, 1, 3);
   const backGeometry = new BoxGeometry(3, 2, 3);
-  
+
   const front = new Mesh(frontGeometry, new MeshBasicMaterial({ color: 0x00ff00, wireframe: true }));
   const back = new Mesh(backGeometry, new MeshBasicMaterial({ color: 0x00ff00, wireframe: true }));
 
@@ -96,7 +96,7 @@ const addBody = (x, y, z) => {
     addWheel(0, 0, 2.5),
     addWheel(0, 0, -2.5),
   );
-  
+
   body.add(front, back, createGlass());
   body.position.set(x, y, z);
   body.rotateY(-Math.PI/2);
@@ -106,7 +106,7 @@ const addBody = (x, y, z) => {
 
 /**
  * Create car on given position.
- * 
+ *
  * @param {double} x
  * @param {double} y
  * @param {double} z
@@ -133,7 +133,7 @@ export default (position, scale = new Vector3(1, 1, 1)) => {
   );
   car.name = 'car';
   car.rotateY(-Math.PI/2);
-  
+
   car.position.copy(position);
   car.scale.copy(scale);
 
