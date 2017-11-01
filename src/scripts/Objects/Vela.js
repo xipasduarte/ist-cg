@@ -17,7 +17,7 @@ const createLight = (x, y, z) =>{
 }
 export default () => {
 	const velas = new Group();
-	velas.name = 'Velas';
+	velas.name = 'velas';
 
 	velas.add(
 		createLight(45,5,20),

@@ -3,7 +3,7 @@ import { Group, BoxGeometry, MeshLambertMaterial,  Mesh, Box3} from 'three';
 export default (number) => {
   const butters = new Group;
   butters.name = 'butters';
-  const geometry = new BoxGeometry(5, 2, 2, 20, 20);
+  const geometry = new BoxGeometry(5, 2, 2, 5, 5, 5);
   const material = new MeshLambertMaterial({
     color: 0xffff00,
     wireframe: window.game.state.wireframe,
