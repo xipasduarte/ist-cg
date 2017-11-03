@@ -20,8 +20,6 @@ const animate = () => {
 		node.update();
 	});
 
-	detectCollision();
-	treatCollision();
 	
 	updateCarPosition(delta);
 	updateOrangePosition(delta);
