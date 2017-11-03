@@ -5,6 +5,7 @@ import Butter from './../Objects/Butter';
 import Car from './../Objects/Car';
 import Table from './../Objects/Table';
 import Track from './../Objects/Track';
+import Vela from './../Objects/Vela';
 
 class BuildScene {
   static build(game) {
@@ -17,7 +18,8 @@ class BuildScene {
       ),
       Track(0, 0, 0),
       Orange(3),
-      Butter(5)
+      Butter(5),
+      Vela()
     );
   }
 }

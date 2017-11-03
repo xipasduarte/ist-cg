@@ -35,5 +35,15 @@ export default (e) => {
     case 51: // 3
       window.game.state.currentCamera = window.game.cameras.thirdPerson;
       break;
+    case 67: // Turn off pointlights
+      scene.getObjectByName('velas').children.forEach( 
+        (vela) => {
+          if(vela.intensity == 0){
+            vela.intensity = 2;
+          }else{
+            vela.intensity = 0;
+          }
+        }
+      );
   }
 }

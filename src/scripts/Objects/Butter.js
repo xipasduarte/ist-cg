@@ -1,17 +1,19 @@
-import { Group, BoxGeometry, MeshBasicMaterial,  Mesh, Box3 } from 'three';
+import { Group, BoxGeometry, MeshLambertMaterial,  Mesh, Box3} from 'three';
 
 export default (number) => {
   const butters = new Group;
   butters.name = 'butters';
-  const geometry = new BoxGeometry(5, 2, 2);
-  const material = new MeshBasicMaterial({
+  const geometry = new BoxGeometry(5, 2, 2, 5, 5, 5);
+  const material = new MeshLambertMaterial({
     color: 0xffff00,
     wireframe: window.game.state.wireframe,
   });
-  const butter = new Mesh(geometry, material);
+
   const safe_x = 120;
   const safe_z = 80;
   const AABB = new Box3();
+
+  const butter = new Mesh(geometry, material);
 
   butter.state = {
     boundingBox: AABB,
