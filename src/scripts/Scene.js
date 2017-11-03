@@ -1,9 +1,10 @@
-import { Scene, AxisHelper, Vector3, BoxHelper } from 'three';
+import { Scene, AxisHelper, Vector3, BoxHelper, PlaneGeometry, MeshStandardMaterial, Mesh, SphereBufferGeometry} from 'three';
 import Orange from './Objects/Orange';
 import Butter from './Objects/Butter';
 import Car from './Objects/Car';
 import Table from './Objects/Table';
 import Track from './Objects/Track';
+import Vela from './Objects/Vela';
 
 export default () => {
   const scene = new Scene();
@@ -16,18 +17,8 @@ export default () => {
     ),
     Track(0, 0, 0),
     Orange(3),
-    Butter(5)
+    Butter(5),
+    Vela(),
   );
-
-  // Add boxes
-  scene.traverse((node) => {
-    if(['car', 'orange', 'butter', 'cheerio'].indexOf(node.name) === -1) {
-      return;
-    }
-    const box = new BoxHelper( node, 0xffff00 );
-    box.name = 'AABB';
-    scene.add(box);
-  });
-
   window.scene = scene;
 }

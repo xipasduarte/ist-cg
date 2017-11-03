@@ -1,4 +1,4 @@
-import { Box3, BoxGeometry, ConeGeometry, Group, SphereGeometry, MeshBasicMaterial, Mesh, Vector3 } from 'three';
+import { Box3, BoxGeometry, ConeGeometry, Group, SphereGeometry, MeshLambertMaterial, Mesh, Vector3 } from 'three';
 
 export default (number) => {
   const oranges = new Group();
@@ -7,7 +7,7 @@ export default (number) => {
   // Common characteristics.
   const orange = new Mesh(
     new SphereGeometry(2),
-    new MeshBasicMaterial({
+    new MeshLambertMaterial({
       color: 0xcc5300,
       wireframe: window.game.state.wireframe,
     })
@@ -16,14 +16,14 @@ export default (number) => {
   const stickAndLeaf = new Group();
   const stick = new Mesh(
     new ConeGeometry(0.1, 1, 5),
-    new MeshBasicMaterial({
+    new MeshLambertMaterial({
       color: 0x00ff00,
       wireframe: window.game.state.wireframe,
     })
   );
   const leaf = new Mesh(
     new BoxGeometry(1, .05, 1),
-    new MeshBasicMaterial({
+    new MeshLambertMaterial({
       color: 0x00ff00,
       wireframe: window.game.state.wireframe,
     })
