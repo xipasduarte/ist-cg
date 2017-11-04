@@ -28,7 +28,7 @@ class BuildCameras {
 
   static build(game) {
     game.cameras = {
-      orthogonal: this.orthogonal(0, 10, 0, game.scene.position),
+      orthogonal: this.orthogonal(0, 20, 0, game.scene.position),
       thirdPerson: this.buildThirdPersonCamera(game.scene),
       perspective: this.perspective(75, 75, 75, game.scene.position),
     };
