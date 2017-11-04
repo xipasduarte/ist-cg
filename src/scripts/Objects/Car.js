@@ -193,7 +193,6 @@ const addExhaustPipe = (side) => {
                                       new Vector3(12.5, 0.75, 0.5),
                                       new Vector3(13, 0.75, 1.5),
                                       new Vector3(13, 0.5, 2)));
-    console.log(path.getPoint(1));
     path.add( new CubicBezierCurve3(  new Vector3(13, 0.5, 2),
                                       new Vector3(13, -1.625, 4),
                                       new Vector3(13, -4.875, 6),
