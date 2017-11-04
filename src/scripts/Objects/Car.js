@@ -286,6 +286,43 @@ const addStump = () => {
   return mesh2;
 }
 
+const addDomeRing = () => {
+  var rectangle = new Shape();
+  rectangle.moveTo(3.6,0);
+  rectangle.lineTo(4,0);
+  rectangle.lineTo(4,1);
+  rectangle.lineTo(3.6,1);
+  rectangle.lineTo(3.6,0);
+
+  var geometry = new LatheGeometry( rectangle.extractPoints(10).shape,20);
+  var material = new MeshLambertMaterial( { color: 0xffd700, wireframe: true} );
+  var mesh = new Mesh( geometry, material ) ;
+
+  var geometry1 = new BoxGeometry( 1, 1, 4);
+  var material1 = new MeshLambertMaterial( { color: 0xffd700, wireframe: true} );
+  var mesh1 = new Mesh( geometry1, material1 ) ;
+
+  var geometry2 = new LatheGeometry( rectangle.extractPoints(10).shape,20);
+  var material2 = new MeshLambertMaterial( { color: 0xffd700, wireframe: true} );
+  var mesh2 = new Mesh( geometry2, material2 ) 
+
+  mesh.scale.copy(new Vector3(0.25,0.25,0.25));
+  mesh.position.set(0,3.2,3);
+  mesh.rotateX(Math.PI/14);
+
+  mesh1.scale.copy(new Vector3(0.25,0.25,0.25));
+  mesh1.position.set(0,3.468,1.6);
+  mesh1.rotateX(-Math.PI/14);
+
+  mesh2.scale.copy(new Vector3(0.36,0.29,0.36));
+  mesh2.rotateX(-Math.PI/2);
+  mesh2.position.set(0,2.1,1.3);
+
+  const group = new Group();
+  group.add(mesh1,mesh,mesh2);
+  return group;
+}
+
 /**
  * Create car on given position.
  *
@@ -317,7 +354,8 @@ export default (position, scale = new Vector3(0.7, 0.7, 0.7)) => {
           addWindowDome(),
           addHeadLights(),
           addExhaustPipes(),
-          addStump()
+          addStump(),
+          addDomeRing()
           );
 
   car.rotateY(-Math.PI/2);

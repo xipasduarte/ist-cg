@@ -42,7 +42,6 @@ class Candles extends Group {
     var mesh = new Mesh( geometry, material );
 
     mesh.position.copy(position);
-    console.log(position);
     mesh.scale.copy(new Vector3(0.3,0.3,0.3));
     return mesh;
 

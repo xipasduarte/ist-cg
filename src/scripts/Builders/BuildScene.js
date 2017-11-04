@@ -21,12 +21,12 @@ class BuildScene {
       new Butters(5), // Amount.
       new Candles([
         // Candle positions.
-        new Vector3(45, 10, 20),
-        new Vector3(-45, 10, 20),
-        new Vector3(-45, 10, -20),
-        new Vector3(45, 10, -20),
-        new Vector3(0, 10, 20),
-        new Vector3(0, 10, -20)
+        new Vector3(45, 12, 20),
+        new Vector3(-45, 12, 20),
+        new Vector3(-45, 12, -20),
+        new Vector3(45, 12, -20),
+        new Vector3(0, 12, 20),
+        new Vector3(0, 12, -20)
       ])
     );
   }
