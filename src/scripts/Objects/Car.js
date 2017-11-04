@@ -33,6 +33,7 @@ const addBody = () => {
   body.position.set(0,2,0);
   body.rotateZ(Math.PI/2);
   body.scale.copy(new Vector3(0.4,0.4,0.4));
+  body.rotateX(Math.PI/2);
   return body;
 }
 
@@ -44,7 +45,7 @@ const wheelMesh = (scale) => {
   rectangle.lineTo(1,3);
   rectangle.lineTo(1,0);
 
-  var geometry = new LatheGeometry( rectangle.extractPoints(10).shape);
+  var geometry = new LatheGeometry( rectangle.extractPoints(10).shape,20);
   var material = new MeshBasicMaterial( { color: 0x999999, wireframe: true} );
   var mesh = new Mesh( geometry, material ) ;
   mesh.rotateX(Math.PI/2);
@@ -69,15 +70,18 @@ const addWheels = () => {
   frontLeftWheel.name = "wheel";
 
   front.add(frontRightWheel,frontLeftWheel);
-  front.name = 'name';
+  front.name = 'front';
 
   backLeftWheel.add(wheelMesh(new Vector3(0.4, 0.4, 0.4)));
   backLeftWheel.position.set(-2, 2.2, 1.8);
+  backRightWheel.name = "wheel";
 
   backRightWheel.add(wheelMesh(new Vector3(0.4, 0.4, 0.4)));
   backRightWheel.position.set(-2, 2.2, -3);
+  backLeftWheel.name = "wheel";
 
   Wheels.add(front, backLeftWheel, backRightWheel);
+  Wheels.rotateY(Math.PI/2);
   return Wheels;
 }
 
@@ -98,6 +102,7 @@ const addWheelAxis = () => {
   mesh2.position.set(-2, 2.2, 0);
 
   WheelAxis.add(mesh1, mesh2);
+  WheelAxis.rotateY(Math.PI/2);
   return WheelAxis;
 }
 
@@ -109,6 +114,7 @@ const addWindowDome = () => {
   mesh3.position.set(-3,3.1,0);
   mesh3.rotateX(-Math.PI/2);
   windowDome.add(mesh3);
+  windowDome.rotateY(Math.PI/2);
   return windowDome;
 }
 
@@ -155,6 +161,7 @@ const addHeadLight = (x, y, z) => {
   mesh2.rotateX(-Math.PI/64);
 
   headLight.add(mesh1,mesh2);
+  headLight.rotateY(Math.PI/2);
   return headLight;
 }
 
@@ -249,7 +256,21 @@ const addExhaustPipes = () => {
                     mesh2,
                     exhaustPipeRight,
                     exhaustPipeLeft);
+
+  ExhaustPipes.rotateY(Math.PI/2);
+
   return ExhaustPipes;
+}
+
+const addStump = () => {
+  var geometry2 = new SphereGeometry(1, 30, 2, 0, 6.3, 3, 1.6);
+  var material2 = new MeshBasicMaterial( { color: 0x00ff00, wireframe: true, side:2} );
+  var mesh2 = new Mesh( geometry2, material2 );
+  mesh2.rotateZ(-Math.PI/2);
+  mesh2.position.set(0,2,-0.55);
+  mesh2.rotateX(-Math.PI/2);
+
+  return mesh2;
 }
 
 /**
@@ -259,7 +280,7 @@ const addExhaustPipes = () => {
  * @param {double} y
  * @param {double} z
  */
-export default (position, scale = new Vector3(1, 1, 1)) => {
+export default (position, scale = new Vector3(0.7, 0.7, 0.7)) => {
   const car = new Group();
   const car2 = new Group();
 
@@ -283,9 +304,12 @@ export default (position, scale = new Vector3(1, 1, 1)) => {
           addWindowDome(),
           addHeadLights(),
           addExhaustPipes(),
+          addStump()
           );
 
-  car.lookAt(new Vector3(1, 0, 0));
+  car.rotateY(-Math.PI/2);
+  car.position.copy(position);
+  car.scale.copy(scale);
 
   return car;
 };

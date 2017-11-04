@@ -31,7 +31,8 @@ export default (type) => {
     case 'thirdPerson':
       camera = perspective(0, 5, -10, car.position);
       car.add(camera);
-      camera.lookAt(new Vector3(0, 0, 0));
+      camera.position.set(0,7,-6);
+      camera.lookAt(new Vector3(0, 4, 0));
       break;
     default:
       camera = perspective(0, 2, 40, scene.position);

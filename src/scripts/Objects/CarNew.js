@@ -15,7 +15,8 @@ import {
   SphereGeometry,
   CurvePath,
   CubicBezierCurve3,
-  ExtrudeGeometry
+  ExtrudeGeometry,
+  ConeGeometry
 } from 'three';
 
 const addBody = () => {
@@ -251,13 +252,18 @@ export default (position, scale = new Vector3(1, 1, 1)) => {
 	const car = new Group();
 	car.name = "car";
 
-
+  var geometry2 = new SphereGeometry(1, 30, 2, 0, 6.3, 3, 1.6);
+  var material2 = new MeshBasicMaterial( { color: 0x00ff00, wireframe: true, side:2} );
+  var mesh2 = new Mesh( geometry2, material2 );
+  mesh2.rotateZ(-Math.PI/2);
+  mesh2.position.set(0.55,2,0);
   car.add(addBody(),
           addWheels(),
           addWheelAxis(),
           addWindowDome(),
           addHeadLights(),
           addExhaustPipes(),
+          mesh2
           );
 
 	return car;

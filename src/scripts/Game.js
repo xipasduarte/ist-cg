@@ -36,7 +36,7 @@ class Game {
         const car = window.scene.getObjectByName('car');
         car.state.speed = 0;
         car.setRotationFromAxisAngle(new Vector3(0, 1, 0), -Math.PI/2);
-        car.position.copy(new Vector3(0, 2, 25));
+        car.position.copy(new Vector3(0, 0, 25));
         window.clock.stop();
         window.clock.start();
 

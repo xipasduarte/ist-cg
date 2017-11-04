@@ -12,7 +12,7 @@ export default () => {
     new AxisHelper(10),
     Table(0, 0, 0),
     Car(
-      new Vector3(0, 2, 25), // Car initial position.
+      new Vector3(0, 0, 25), // Car initial position.
       new Vector3(1, 1, 1) // Car initial scale.
     ),
     Track(0, 0, 0),
