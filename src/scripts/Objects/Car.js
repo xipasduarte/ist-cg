@@ -15,7 +15,8 @@ import {
   SphereGeometry,
   CurvePath,
   CubicBezierCurve3,
-  ExtrudeGeometry
+  ExtrudeGeometry,
+  Geometry
 } from 'three';
 
 const addBody = () => {
@@ -171,7 +172,7 @@ const addHeadLights = () => {
   return headLights;
 }
 
-const addExhaustPipe = () => {
+const addExhaustPipe = (side) => {
   var shape = new Shape();
   shape.moveTo(1,0);
   shape.bezierCurveTo(1.5, 0, 2, 0.5, 2, 1);
@@ -180,30 +181,31 @@ const addExhaustPipe = () => {
   shape.bezierCurveTo(0, 0.5, 0.5, 0, 1 ,0);
 
   var path = new CurvePath();
-  path.add( new CubicBezierCurve3(  new Vector3(0, 0, 0),
-                                    new Vector3(0, 0.5, 0),
-                                    new Vector3(0.5, 0.5, 0),
-                                    new Vector3(1, 1, 0)));
-  path.add( new CubicBezierCurve3(  new Vector3(1, 1, 0),
-                                    new Vector3(2, 1, 0),
-                                    new Vector3(3, 1, 0),
-                                    new Vector3(12, 1, 0)));
-  path.add( new CubicBezierCurve3(  new Vector3(12, 1, 0),
-                                    new Vector3(12.5, 0.75, 0.5),
-                                    new Vector3(13, 0.75, 1.5),
-                                    new Vector3(13, 0.5, 2)));
-  path.add( new CubicBezierCurve3(  new Vector3(13, 0.5, 2),
-                                    new Vector3(13, -1.625, 4),
-                                    new Vector3(13, -4.875, 6),
-                                    new Vector3(13, -8, 6)));
-  path.add( new CubicBezierCurve3(  new Vector3(13, -8, 6),
-                                    new Vector3(13, -9, 6),
-                                    new Vector3(14, -10, 6),
-                                    new Vector3(15, -10, 6)));
-  path.add( new CubicBezierCurve3(  new Vector3(15, -10, 6),
-                                    new Vector3(16, -10, 6),
-                                    new Vector3(17, -10, 7),
-                                    new Vector3(17, -10, 8)));
+    path.add( new CubicBezierCurve3(  new Vector3(0, 0, 0),
+                                      new Vector3(0, 0.5, 0),
+                                      new Vector3(0.5, 0.5, 0),
+                                      new Vector3(1, 1, 0)));
+    path.add( new CubicBezierCurve3(  new Vector3(1, 1, 0),
+                                      new Vector3(2, 1, 0),
+                                      new Vector3(3, 1, 0),
+                                      new Vector3(12, 1, 0)));
+    path.add( new CubicBezierCurve3(  new Vector3(12, 1, 0),
+                                      new Vector3(12.5, 0.75, 0.5),
+                                      new Vector3(13, 0.75, 1.5),
+                                      new Vector3(13, 0.5, 2)));
+    path.add( new CubicBezierCurve3(  new Vector3(13, 0.5, 2),
+                                      new Vector3(13, -1.625, 4),
+                                      new Vector3(13, -4.875, 6),
+                                      new Vector3(13, -8, 6)));
+    path.add( new CubicBezierCurve3(  new Vector3(13, -8, 6),
+                                      new Vector3(13, -9, 6),
+                                      new Vector3(14, -10, 6),
+                                      new Vector3(15, -10, 6)));
+    path.add( new CubicBezierCurve3(  new Vector3(15, -10, 6),
+                                      new Vector3(16, -10, 6),
+                                      new Vector3(17, -10, 7),
+                                      new Vector3(17, -10, 8)));
+
   var extrudeSettings = {
   curveSegments:3,
   steps: 40,
@@ -216,12 +218,22 @@ const addExhaustPipe = () => {
   };
 
   var geometry = new ExtrudeGeometry( shape, extrudeSettings );
+  if(side===-1){
+    var tmpGeo = new Geometry().copy(geometry);
+    for (var i = 0; i < tmpGeo.vertices.length; i++) {      
+      tmpGeo.vertices[i].z *= -1;
+    }
+    geometry = tmpGeo;
+  }
   var material = new MeshBasicMaterial( { color: 0xffd700, wireframe:true, side:2 } );
   var mesh = new Mesh( geometry, material) ;
+  mesh.geometry.computeVertexNormals();
+  mesh.geometry.mergeVertices();
   //mesh.position.set(0,8,0);
   mesh.scale.copy( new Vector3(0.15, 0.15, 0.15));
   mesh.position.set(-6.5, 2.8, 0.5);
   mesh.rotateZ(Math.PI/20);
+  mesh.name='pipe';
   return mesh
 }
 
@@ -246,16 +258,17 @@ const addExhaustPipes = () => {
   mesh2.scale.copy(new Vector3(0.06,0.06,0.06))
   mesh2.rotateX(Math.PI);
   
-  const exhaustPipeLeft = addExhaustPipe();
+  const exhaustPipeLeft = addExhaustPipe(1);
   const exhaustPipeRight = new Group();
-  exhaustPipeRight.add(addExhaustPipe());
-  exhaustPipeRight.scale.copy ( new Vector3(1,1,-1));
+  exhaustPipeRight.add(addExhaustPipe(-1));
+  exhaustPipeRight.position.z-=1;
 
 
   ExhaustPipes.add( mesh1,
                     mesh2,
                     exhaustPipeRight,
-                    exhaustPipeLeft);
+                    exhaustPipeLeft
+                    );
 
   ExhaustPipes.rotateY(Math.PI/2);
 
