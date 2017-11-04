@@ -24,15 +24,6 @@ export default () => {
     )
   );
 
-  // Add boxes
-  scene.traverse((node) => {
-    if(['car', 'orange', 'butter', 'cheerio'].indexOf(node.name) === -1) {
-      return;
-    }
-    const box = new BoxHelper( node, 0xffff00 );
-    box.name = 'AABB';
-    scene.add(box);
-  });
 
   window.scene = scene;
 }

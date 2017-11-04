@@ -83,7 +83,7 @@ const updateRotationPosition = (car, delta) => {
     (car.state.left && !car.state.turningLeft) ||
     (car.state.right && !car.state.turningRight)
   ) {
-    turnWheels(car.getObjectByName('front').children, car.state.speed < 0 ? -direction : direction);
+    //turnWheels(car.getObjectByName('front').children, car.state.speed < 0 ? -direction : direction);
     car.state.turningLeft = car.state.left;
     car.state.turningRight = car.state.right;
   }
@@ -136,7 +136,7 @@ export default (delta) => {
 
   // Remove front wheel Y rotation when the car is not turning.
   if (!car.state.left && !car.state.right && (car.state.turningLeft || car.state.turningRight)) {
-    turnWheels(car.getObjectByName('front').children, 0);
+    //turnWheels(car.getObjectByName('front').children, 0);
     car.state.turningLeft = false;
     car.state.turningRight = false;
   }
