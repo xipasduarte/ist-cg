@@ -250,7 +250,6 @@ const addExhaustPipes = () => {
 }
 export default (position, scale = new Vector3(1, 1, 1)) => {
 	const car = new Group();
-	car.name = "car";
 
   var geometry2 = new SphereGeometry(1, 30, 2, 0, 6.3, 3, 1.6);
   var material2 = new MeshBasicMaterial( { color: 0x00ff00, wireframe: true, side:2} );

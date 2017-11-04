@@ -24,6 +24,5 @@ export default () => {
     )
   );
 
-
   window.scene = scene;
 }
