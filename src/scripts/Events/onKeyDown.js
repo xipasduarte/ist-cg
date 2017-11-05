@@ -36,7 +36,7 @@ export default (e) => {
       window.game.state.currentCamera = window.game.cameras.thirdPerson;
       break;
     case 67: // Turn off pointlights
-      window.game.state.getObjectByName('velas').children.forEach((vela) => {
+      scene.getObjectByName('candles').children.forEach((vela) => {
         if ( vela.intensity === 0 ) {
           vela.intensity = 2;
         } else {
